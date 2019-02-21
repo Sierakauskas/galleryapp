@@ -59,27 +59,15 @@
     </form>
 
     <!--show-->
+    <!--<div class="row mt-4">-->
+        <!--<span th:text="${searchresult}"></span>-->
+        <!--<span th:text="${users.size()}"></span>-->
+    <!--</div>-->
     <div class="row mt-5">
-        <span th:text="${searchresult}"></span>
+        <div class="col-auto mr-auto"><span th:text="${searchresult}"></span></div>
+        <div class="col-auto"><span>Found:</span><span th:text="${users.size()}"></span></div>
     </div>
-
     <div class="row mt-1">
-        <!--<table>-->
-        <!--<th:block th:each="user: ${users}">-->
-            <!--<tr>-->
-                <!--<th>-->
-                <!--<div class="imgbox">-->
-                <!--<a th:href="@{'/imageDisplay?id='+${user.getImageId()}}">-->
-                <!--<img th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100" class="mt-1"/>-->
-                <!--</a>-->
-                    <!--<span th:text="${user.getTagName()}"></span>-->
-                <!--<button>Hide</button>-->
-                <!--</div>-->
-                <!--</th>-->
-            <!--</tr>-->
-        <!--</th:block>-->
-        <!--</table>-->
-
         <table class="table" id = "table" style="text-align: center">
             <thead class="thead-dark">
             <tr>

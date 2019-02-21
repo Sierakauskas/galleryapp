@@ -26,10 +26,6 @@ public class ImageTagServiceImpl implements ImageTagService {
             return tagEntity;
     }
 
-    public List<ImageEntity> getAll() {
-        return imageRepository.findAll();
-    }
-
     public void deleteStoredTags (ImageEntity entity) {
         Set<ImageTagEntity> newList = entity.getTags();
         entity.getTags().removeAll(newList);
