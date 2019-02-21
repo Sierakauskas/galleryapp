@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.2.RELEASE</version>
+    </parent>
+
+    <groupId>gallery</groupId>
+    <artifactId>galleryapp</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--<dependencyManagement></dependencyManagement>-->
+    <!--<dependencies></dependencies>-->
+
+    <modules>
+        <module>gallery-bl</module>
+        <module>gallery-model</module>
+        <module>gallery-ui</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <webjars.locator.version>0.36</webjars.locator.version>
+        <webjars.bootstrap.version>4.2.1</webjars.bootstrap.version>
+        <imgscalr-lib>4.2</imgscalr-lib>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>gallery</groupId>
+                <artifactId>gallery-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>gallery</groupId>
+                <artifactId>gallery-bl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Optional, for bootstrapss_all -->
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${webjars.bootstrap.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>webjars-locator</artifactId>
+                <version>${webjars.locator.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+
+</project>

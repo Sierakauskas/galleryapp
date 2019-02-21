@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Basic Bootstrap Template</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <!-- Optional Bootstrap theme -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<style type="text/css"></style>
+
+<body>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" width="30" class="d-inline-block align-top"/>
+        Home
+    </a>
+</nav>
+
+<div class="container mt-3">
+
+    <form method="post" action="/results/search=" enctype="multipart/form-data">
+        <div class="row col-sm-12 col-md-6 col-lg-6 mt-3">
+            <!--<div class="col-auto">-->
+                <!--<img th:src="@{/images/Search-512.png}" alt="search logo" title="Search logo" class="uploadsearch" />-->
+            <!--</div>-->
+            <p>by:</p>
+            <label class="radio col-sm-auto">
+                <input type="radio" name="optradio" value="ID" th:checked="${#strings.equals(lastchecked, 'ID')}">ID
+            </label>
+            <label class="radio col-sm-auto">
+                <input type="radio" name="optradio" value="File Name" th:checked="${#strings.equals(lastchecked, 'File Name')}">File Name
+            </label>
+            <label class="radio col-sm-auto">
+                <input type="radio" name="optradio" value="Tag" th:checked="${#strings.equals(lastchecked, 'Tag')}">Tag
+            </label>
+            <label class="radio col-sm-auto">
+                <input type="radio" name="optradio" value="Type" th:checked="${#strings.equals(lastchecked, 'Type')}">Type
+            </label>
+            <label class="radio col-sm-auto">
+                <input type="radio" name="optradio" value="Size" th:checked="${#strings.equals(lastchecked, 'Size')}">Size
+            </label>
+        </div>
+        <div class="row">
+
+            <!--<div class="col-sm-12 col-md-6 col-lg-4 ">-->
+            <div class="col-auto">
+                <input class="form-control" type="text" name="searchtext" th:placeholder="${showsearch}" aria-label="Search">
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <input class="btn btn-outline-primary" type="submit" value="Search">
+            </div>
+        </div>
+    </form>
+
+    <!--show-->
+    <div class="row mt-5">
+        <span th:text="${searchresult}"></span>
+    </div>
+
+    <div class="row mt-1">
+        <!--<table>-->
+        <!--<th:block th:each="user: ${users}">-->
+            <!--<tr>-->
+                <!--<th>-->
+                <!--<div class="imgbox">-->
+                <!--<a th:href="@{'/imageDisplay?id='+${user.getImageId()}}">-->
+                <!--<img th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100" class="mt-1"/>-->
+                <!--</a>-->
+                    <!--<span th:text="${user.getTagName()}"></span>-->
+                <!--<button>Hide</button>-->
+                <!--</div>-->
+                <!--</th>-->
+            <!--</tr>-->
+        <!--</th:block>-->
+        <!--</table>-->
+
+        <table class="table" id = "table" style="text-align: center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">File Name</th>
+                <th scope="col">Tags</th>
+                <th scope="col">Type</th>
+                <th scope="col">Size</th>
+                <th scope="col">Image</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <tr th:each="user: ${users}">
+
+                <td th:text="${user.getImageId()}"></td>
+                <td th:text="${user.getImageName()}">45</td>
+                <td th:text="${user.getTagName()}">45</td>
+                <td th:text="${user.getImageType()}">45</td>
+                <td th:text="${user.getImageSize()}">45</td>
+                <td><a th:href="@{'/imageDisplay?id='+${user.getImageId()}}" style="background: white"><img th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100"/></a></td>
+                <td><form action="/edit" th:value="${user.getImageId()}"><button class="btn btn-outline-primary" type="submit" name="edit" th:value="${user.getImageId()}">Edit</button></form></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+        <div th:if="${emptytext}">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-1"><p class="showempty" th:text="${emptytext}"></p></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
