@@ -3,9 +3,7 @@ import com.insoft.practice.bl.services.ImageTagService;
 import com.insoft.practice.bl.services.impl.ImageTagServiceImpl;
 import com.insoft.practice.model.ImageEntity;
 import com.insoft.practice.model.ImageTagEntity;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -32,7 +30,7 @@ class TestTagServiceImpl {
     }
 
     @Test
-    @DisplayName("Test Entity:")
+//    @DisplayName("Test Entity:")
     public void addAndDeleteTag() {
         Long id = 1L;
         String tagname = "tagas";

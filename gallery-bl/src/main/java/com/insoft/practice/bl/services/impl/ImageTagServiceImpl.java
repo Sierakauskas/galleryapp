@@ -5,6 +5,7 @@ import com.insoft.practice.bl.services.ImageTagService;
 import com.insoft.practice.model.ImageEntity;
 import com.insoft.practice.model.ImageTagEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class ImageTagServiceImpl implements ImageTagService {
     private final ImageRepository imageRepository;
 
 
+    @Secured({"ADMIN", "USER"})
     @Override
     public ImageTagEntity storeTag(String tagname, Long id) {
             ImageTagEntity tagEntity = new ImageTagEntity(tagname);
@@ -26,6 +28,7 @@ public class ImageTagServiceImpl implements ImageTagService {
             return tagEntity;
     }
 
+    @Secured({"ADMIN", "USER"})
     public void deleteStoredTags (ImageEntity entity) {
         Set<ImageTagEntity> newList = entity.getTags();
         entity.getTags().removeAll(newList);

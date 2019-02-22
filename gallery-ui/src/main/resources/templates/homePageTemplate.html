@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,33 +20,54 @@
 
 <body>
 <div class="container">
+    <div class="row">
+        <div class="col-auto mr-auto"></div>
+        <div class="col-auto">
+            <div sec:authorize="!isAuthenticated()">
+            <form action="/login">
+                <button class="btn btn-outline-success btn-sm" type="submit">Login</button>
+            </form>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <form action="/logout">
+                    <label>Logged as: <span sec:authentication="name"></span></label>
+                    <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container">
     <div class="row row justify-content-md-center">
 
         <div class="col-sm-12 col-md-6 col-lg-6">
-            <h1> Upload
-            <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" class="uploads" />
-                 <!--th:src="@{.../images/upload.png}" th:alt-title="logo" -->
-                 Photo
+            <h1>Photo
+                <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" class="uploads"/>
+                <!--th:src="@{.../images/upload.png}" th:alt-title="logo" -->
+                Service
             </h1>
         </div>
         <div class="clearfix visible-sm-block"></div>
     </div>
     <!--upload file-->
-    <div class="row top-buffer">
-        <div class="col-sm-12 ml-auto"><h5>Upload a photo:</h5></div>
-        <div class="clearfix visible-sm-block"></div>
-    </div>
+    <div sec:authorize="isAuthenticated()">
+        <div class="row top-buffer container">
+            <div class="col-sm-12 ml-auto"><h5>Upload a photo:</h5></div>
+            <div class="clearfix visible-sm-block"></div>
 
-    <form method="post" action="/saveImage" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4">
-                <input type="file" name="file" class="form-control" required>
-            </div>
-        <div class="col-sm-12 col-md-6 col-lg-4">
-            <input class="btn btn-primary" type="submit" value="Upload File">
+            <form method="post" action="/saveImage" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-sm-12 col-md-8 col-lg-7">
+                        <input type="file" name="file" class="form-control" required>
+                    </div>
+                <div class="col-sm-12 col-md-4 col-lg-5">
+                    <input class="btn btn-primary" type="submit" value="Upload File">
+                </div>
+                </div>
+            </form>
         </div>
     </div>
-    </form>
     <!--upload file-->
 
     <!--search-->
@@ -89,7 +111,7 @@
         <div class="col-sm-12"><h6>Recently uploaded:</h6></div>
     </div>
 
-    <table class="table" id = "table" style="text-align: center">
+    <table class="table" id="table" style="text-align: center">
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -98,19 +120,27 @@
             <th scope="col">Type</th>
             <th scope="col">Size</th>
             <th scope="col">Image</th>
-            <th scope="col">Edit</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <tr th:each="user: ${users}">
+        <tr th:each="user: ${users}">
             <td th:text="${user.getImageId()}">vasile</td>
             <td th:text="${user.getImageName()}">45</td>
             <td th:text="${user.getTagName()}">45</td>
             <td th:text="${user.getImageType()}">45</td>
             <td th:text="${user.getImageSize()}">45</td>
-            <td><a th:href="@{'/imageDisplay?id='+${user.getImageId()}}" style="background: white"><img th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100"/></a></td>
-            <td><form action="/edit" th:value="${user.getImageId()}"><button class="btn btn-outline-primary" type="submit" name="edit" th:value="${user.getImageId()}">Edit</button></form></td>
+            <td><a th:href="@{'/imageDisplay?id='+${user.getImageId()}}" style="background: white"><img
+                    th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100"/></a></td>
+            <td>
+                <form action="/edit" th:value="${user.getImageId()}">
+                    <button class="btn btn-outline-primary" type="submit" name="edit" th:value="${user.getImageId()}">
+                        <div sec:authorize="isAuthenticated()"><span>Edit</span></div>
+                        <div sec:authorize="!isAuthenticated()"><span>View</span></div>
+                    </button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

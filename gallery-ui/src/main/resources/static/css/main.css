@@ -140,7 +140,7 @@ table > tbody > tr > td > a, table > tbody > tr > td > a:hover {
     background-color: #352726;
     padding: 2px 10px;
     color: #f0faaa;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     text-transform: uppercase;
     border: 0px;
 }

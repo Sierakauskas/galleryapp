@@ -7,6 +7,7 @@ import com.insoft.practice.bl.repositories.ImageRepository;
 import com.insoft.practice.bl.repositories.ImageRepositoryImpl;
 import com.insoft.practice.model.ImageEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 
@@ -61,12 +62,14 @@ public class ImageServiceImpl implements ImageService {
         return Base64.getEncoder().encodeToString(image);
     }
 
+    @Secured({"ADMIN", "USER"})
     public void setImageName(Long id, String name) {
         ImageEntity entity = imageRepository.getOne(id);
         entity.setImageName(name);
         imageRepository.save(entity);
     }
 
+    @Secured("ADMIN")
     public void deleteImage(Long id) {
         ImageEntity entity = imageRepository.getOne(id);
         imageRepository.delete(entity);

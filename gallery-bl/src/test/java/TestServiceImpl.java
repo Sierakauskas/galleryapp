@@ -1,12 +1,9 @@
-import com.insoft.practice.bl.exception.FileStorageException;
 import com.insoft.practice.bl.repositories.ImageRepository;
 import com.insoft.practice.bl.repositories.ImageRepositoryImpl;
 import com.insoft.practice.bl.services.ImageService;
 import com.insoft.practice.bl.services.impl.ImageServiceImpl;
 import com.insoft.practice.model.ImageEntity;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -14,12 +11,14 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doReturn;
 
 @RunWith(MockitoJUnitRunner.class)
 class TestServiceImpl {

@@ -2,11 +2,12 @@ package com.insoft.practice.controllers;
 
 import com.insoft.practice.bl.exception.FileStorageException;
 import com.insoft.practice.bl.services.ImageService;
-import com.insoft.practice.bl.services.ImageTagService;
 import com.insoft.practice.model.ImageEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.imgscalr.Scalr;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -32,6 +33,11 @@ public class ImageUploadController {
     public String Welcome(Model md) {
         md.addAttribute("users", imageService.getfive());
         return "homePageTemplate";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
     }
 
 
@@ -125,6 +131,7 @@ public class ImageUploadController {
         md.addAttribute("searchresult", "Showing by " + optradio + ": " + searchtext);
         return "showSearchImages";
     }
+
 }
 
 
