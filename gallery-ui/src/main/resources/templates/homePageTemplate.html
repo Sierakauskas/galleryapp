@@ -25,12 +25,13 @@
         <div class="col-auto">
             <div sec:authorize="!isAuthenticated()">
             <form action="/login">
+                <label>Please Login to upload a photo: </label>
                 <button class="btn btn-outline-success btn-sm" type="submit">Login</button>
             </form>
             </div>
             <div sec:authorize="isAuthenticated()">
                 <form action="/logout">
-                    <label>Logged as: <span sec:authentication="name"></span></label>
+                    <label>Welcome: <span sec:authentication="name"></span></label>
                     <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
                 </form>
             </div>

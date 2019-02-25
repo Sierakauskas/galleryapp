@@ -28,6 +28,7 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.findAll();
     }
 
+    @Secured({"ADMIN", "USER"})
     public ImageEntity storeFile(byte[] data, String fileName, String fileType, String fileSize) {
         ImageEntity imageEntity = new ImageEntity(data, fileName, fileType, fileSize);
         return imageRepository.save(imageEntity);
