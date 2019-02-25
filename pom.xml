@@ -25,12 +25,12 @@
     </modules>
 
     <properties>
+        <spring.boot.version>2.1.2.RELEASE</spring.boot.version>
         <java.version>1.8</java.version>
         <webjars.locator.version>0.36</webjars.locator.version>
         <webjars.bootstrap.version>4.2.1</webjars.bootstrap.version>
         <imgscalr-lib>4.2</imgscalr-lib>
         <junit-jupiter-engine>5.1.0</junit-jupiter-engine>
-        <spring-mock>2.0.8</spring-mock>
         <mockito-all>1.10.19</mockito-all>
     </properties>
 
@@ -73,6 +73,13 @@
                 <groupId>org.webjars</groupId>
                 <artifactId>webjars-locator</artifactId>
                 <version>${webjars.locator.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
         </dependencies>
 

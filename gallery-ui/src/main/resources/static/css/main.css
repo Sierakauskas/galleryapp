@@ -1,9 +1,9 @@
 /*h1{*/
-    /*color:#0000FF;*/
+/*color:#0000FF;*/
 /*}*/
 
 /*h2{*/
-    /*color:#FF0000;*/
+/*color:#FF0000;*/
 /*}*/
 /* Some custom styles to beautify this example */
 
@@ -11,8 +11,8 @@
 /*//////////////*/
 .underline-none {
     /* Of course You'll want to better target this, since you won't want all anchors to be font-size:0 */
-    font-size:0; /* Now that the font size is zero, whitespace won't show. */
-    text-decoration:none; /* If you want to add this, you can, for good measure */
+    font-size: 0; /* Now that the font size is zero, whitespace won't show. */
+    text-decoration: none; /* If you want to add this, you can, for good measure */
 }
 
 .imgbox {
@@ -25,13 +25,13 @@
 }
 
 .showdeleted {
-    text-align:center;
+    text-align: center;
     font-palette: light;
     color: #ed8a02;
 }
 
 .showempty {
-    text-align:center;
+    text-align: center;
     font-palette: light;
     color: cornflowerblue;
 }
@@ -41,37 +41,39 @@
     margin: 200px;
 }
 
-.top-buffer { margin-top:40px; }
-
-.centercolumnblock {
-    margin-left:auto;
-    margin-right:auto;
-    margin-bottom: auto;
-    margin-top: auto;
-    display:block;
+.top-buffer {
+    margin-top: 40px;
 }
 
-.uploadsearch{
+.centercolumnblock {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: auto;
+    display: block;
+}
+
+.uploadsearch {
     height: 30px;
     width: 30px;
 }
 
-.uploads{
+.uploads {
     height: 80px;
     width: 80px;
     margin: 0 auto;
 }
 
-.imageInsideTable{
-    width:auto;
-    max-width:10%;
-    height:auto;
+.imageInsideTable {
+    width: auto;
+    max-width: 10%;
+    height: auto;
 }
 
-.showImage{
-    width:auto;
-    max-width:100%;
-    height:auto;
+.showImage {
+    width: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 #centerContainer {
@@ -162,35 +164,40 @@ a:hover {
 }
 
 /*//login form*/
-.login-container{
+.login-container {
     margin-top: 5%;
     margin-bottom: 5%;
 }
-.login-form-1{
+
+.login-form-1 {
     padding: 5%;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
-.login-form-1 h3{
+
+.login-form-1 h3 {
     text-align: center;
     color: #333;
 }
-.login-container form{
+
+.login-container form {
     padding: 10%;
 }
-.btnSubmit
-{
+
+.btnSubmit {
     width: 50%;
     border-radius: 1rem;
     padding: 1.5%;
     border: none;
     cursor: pointer;
 }
-.login-form-1 .btnSubmit{
+
+.login-form-1 .btnSubmit {
     font-weight: 600;
     color: #fff;
     background-color: #0062cc;
 }
-.login-form-1 .ForgetPwd{
+
+.login-form-1 .ForgetPwd {
     color: #0062cc;
     font-weight: 600;
     text-decoration: none;

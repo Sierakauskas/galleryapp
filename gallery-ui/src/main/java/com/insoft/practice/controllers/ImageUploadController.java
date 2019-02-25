@@ -39,7 +39,7 @@ public class ImageUploadController {
     }
 
 
-    @RequestMapping("/saveImage")
+    @PostMapping("/saveImage")
     public String addImage(Model md, @RequestParam(value = "file", required = false) @RequestBody MultipartFile file) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String fileType = file.getContentType();

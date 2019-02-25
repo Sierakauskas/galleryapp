@@ -17,7 +17,7 @@
 
 <body>
 <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" th:href="@{/}">
         <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" width="30" class="d-inline-block align-top"/>
         Home
     </a>
@@ -25,7 +25,7 @@
 
 <div class="container mt-3">
 
-    <form method="post" action="/results/search=" enctype="multipart/form-data">
+    <form method="post" th:action="@{/results/search=}" enctype="multipart/form-data">
         <div class="row col-sm-12 col-md-6 col-lg-6 mt-3">
             <!--<div class="col-auto">-->
                 <!--<img th:src="@{/images/Search-512.png}" alt="search logo" title="Search logo" class="uploadsearch" />-->
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="row mt-1">
-        <table class="table" id = "table" style="text-align: center">
+        <table class="table table-responsive" id = "table" style="text-align: center">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
@@ -89,7 +89,7 @@
                 <td th:text="${user.getImageSize()}">45</td>
                 <td><a th:href="@{'/imageDisplay?id='+${user.getImageId()}}" style="background: white"><img th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100"/></a></td>
                 <td>
-                    <form action="/edit" th:value="${user.getImageId()}">
+                    <form th:action="@{/edit}" th:value="${user.getImageId()}">
                         <button class="btn btn-outline-primary" type="submit" name="edit" th:value="${user.getImageId()}">
                             <div sec:authorize="isAuthenticated()"><span>Edit</span></div>
                             <div sec:authorize="!isAuthenticated()"><span>View</span></div>

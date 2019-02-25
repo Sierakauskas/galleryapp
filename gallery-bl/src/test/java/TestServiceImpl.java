@@ -1,57 +1,60 @@
+import com.insoft.practice.bl.exception.FileStorageException;
 import com.insoft.practice.bl.repositories.ImageRepository;
-import com.insoft.practice.bl.repositories.ImageRepositoryImpl;
 import com.insoft.practice.bl.services.ImageService;
 import com.insoft.practice.bl.services.impl.ImageServiceImpl;
 import com.insoft.practice.model.ImageEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 class TestServiceImpl {
 
     private ImageService imageService;
-    private Long id = 1L;
+    private static final Long ID = 1L;
 
     @Mock
     ImageRepository imageRepository;
 
     @Mock
-    ImageRepositoryImpl imageTagRepositoryImpl;
+    ImageRepository imageTagRepository;
 
     @BeforeEach
     public void beforeEachTest() {
         // for initialization of mocks
         MockitoAnnotations.initMocks(this);
-        imageService = new ImageServiceImpl(imageRepository, imageTagRepositoryImpl);
+        imageService = new ImageServiceImpl(imageRepository);
     }
 
     @Test
-    public void getImageByID() {
+    public void testImageByIdOk() {
         ImageEntity entityForTest1 = new ImageEntity(null, "mountain", ".png", "100 Kb");
-        entityForTest1.setImageId(id);
-        Mockito.when(imageRepository.findById(id)).thenReturn(Optional.of(entityForTest1));
-        ImageEntity imageEntity = imageService.getImageById(id);
+        entityForTest1.setImageId(ID);
+        when(imageRepository.findById(ID)).thenReturn(Optional.of(entityForTest1));
+        ImageEntity imageEntity = imageService.getImageById(ID);
         assertEquals(imageEntity, entityForTest1);
+    }
 
-        // can't implement
-//        Mockito.when(imageRepository.findById(id)).thenReturn(Optional.empty());
-//        assertThrows(FileStorageException.class, () -> {
-//            imageService.getImageById(0L);
-//        });
+    @Test
+    public void testGetImageByIdException() {
+//         can't implement
+        when(imageRepository.findById(ID)).thenReturn(Optional.empty());
+        assertThrows(FileStorageException.class, () -> {
+            imageService.getImageById(0L);
+        });
     }
 
     @Test
@@ -65,7 +68,7 @@ class TestServiceImpl {
         List<ImageEntity> listOfCreatedEntity = asList(entityForTest1, entityForTest2, entityForTest3, entityForTest4, entityForTest5, entityForTest6);
         List<ImageEntity> list = new LinkedList<>(listOfCreatedEntity);
 
-        Mockito.when(imageRepository.findAll()).thenReturn(list);
+        when(imageRepository.findAll()).thenReturn(list);
         List<ImageEntity> newListEntity = imageService.getfive();
 
         assertNotEquals(newListEntity.size(), listOfCreatedEntity.size());
@@ -76,11 +79,11 @@ class TestServiceImpl {
     public void saveImageName() {
         ImageEntity entityForTest = new ImageEntity(null, "mountain", ".png", "100 Kb");
 
-        Mockito.when(imageRepository.getOne(id)).thenReturn(entityForTest);
-        Mockito.when(imageRepository.save(any())).thenReturn(entityForTest);
+        when(imageRepository.getOne(ID)).thenReturn(entityForTest);
+        when(imageRepository.save(any())).thenReturn(entityForTest);
 
         String newName = "lake";
-        imageService.setImageName(id, newName);
+        imageService.setImageName(ID, newName);
         assertEquals(entityForTest.getImageName(), newName);
     }
 
@@ -88,9 +91,9 @@ class TestServiceImpl {
     public void deleteImageEntity() {
         ImageEntity entityForTest = new ImageEntity(null, "mountain", ".png", "100 Kb");
 
-        Mockito.when(imageRepository.getOne(id)).thenReturn(entityForTest);
+        when(imageRepository.getOne(ID)).thenReturn(entityForTest);
 
-        imageService.deleteImage(id);
+        imageService.deleteImage(ID);
 
         // todo
         // kaip implementuoti repository.remove()

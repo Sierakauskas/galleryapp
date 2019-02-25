@@ -18,7 +18,7 @@ public class ImageTagServiceImpl implements ImageTagService {
     private final ImageRepository imageRepository;
 
 
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @Override
     public ImageTagEntity storeTag(String tagname, Long id) {
             ImageTagEntity tagEntity = new ImageTagEntity(tagname);
@@ -28,7 +28,7 @@ public class ImageTagServiceImpl implements ImageTagService {
             return tagEntity;
     }
 
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public void deleteStoredTags (ImageEntity entity) {
         Set<ImageTagEntity> newList = entity.getTags();
         entity.getTags().removeAll(newList);

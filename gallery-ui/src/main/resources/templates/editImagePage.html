@@ -16,11 +16,11 @@
 </head>
 <body>
 <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" th:href="@{/}">
         <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" width="30" class="d-inline-block align-top"/>
         Home
     </a>
-    <a class="navbar-brand" href="/results/search=">
+    <a class="navbar-brand" th:href="@{/results/search=}">
         <img th:src="@{/images/Search-512.png}" alt="search logo" title="search logo" width="30" class="d-inline-block align-top"/>
         Search
     </a>
@@ -36,7 +36,7 @@
         <div class="col-sm-12 col-md-6 col-lg-4">
             <a th:href="@{'/imageDisplay?id='+${entity.getImageId()}}" style="background: white"><img th:src="@{'/imageDisplay?id='+${entity.getImageId()}}" class="showImage" /></a>
             <div sec:authorize="hasRole('ROLE_ADMIN')">
-                <form action="/deleteImage" class="mt-2">
+                <form th:action="@{/deleteImage}" class="mt-2">
                     <button type="submit" name="imageid" th:value="${entity.getImageId()}" class="btn btn-danger">Delete Picture</button><br>
                 </form>
             </div>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-            <form action="/changename">
+            <form th:action="@{/changename}">
                 <input type="text" name="nametext" class="form-control" required>
                 <button type="submit" name="editnumber" th:value="${entity.getImageId()}" class="btn btn-primary btn-sm mt-1">Change File Name</button><br>
             </form>
@@ -84,7 +84,7 @@
                 <span class="mt-1" th:text="${entity.getTagName()}"></span>
             </h6>
                     <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-                    <form action="/deleteTag" class="mt-2">
+                    <form th:action="@{/deleteTag}" class="mt-2">
                         <button name="deleteTag" type="submit" th:value="${entity.getImageId()}" class="btn btn-warning btn-sm">Delete All Tags</button>
                         <!--<button class="btn" name="deleteTag" onClick="window.location.reload()"></button>-->
                     </form>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-            <form action="/editTag" class="mt-2">
+            <form th:action="@{/editTag}" class="mt-2">
                 <input type="text" name="text" class="form-control" required>
                 <button type="submit" name="editTag" th:value="${entity.getImageId()}" class="btn btn-primary btn-sm mt-1">Add Tag</button><br>
             </form>

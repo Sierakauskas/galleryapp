@@ -3,17 +3,13 @@ package com.insoft.practice.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "ImageTable")
+@NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class ImageEntity {
 
     @Id
@@ -50,13 +46,6 @@ public class ImageEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<ImageTagEntity> tags = new HashSet<>();
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ImageEntity)) return false;
-        return imageId != null && imageId.equals(((ImageEntity) o).imageId);
-    }
 
     public String getTagName() {
         String names = "";

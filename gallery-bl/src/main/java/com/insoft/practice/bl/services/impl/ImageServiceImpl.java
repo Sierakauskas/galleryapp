@@ -1,18 +1,16 @@
 package com.insoft.practice.bl.services.impl;
 
 
-import com.insoft.practice.bl.services.ImageService;
 import com.insoft.practice.bl.exception.FileStorageException;
 import com.insoft.practice.bl.repositories.ImageRepository;
-import com.insoft.practice.bl.repositories.ImageRepositoryImpl;
+import com.insoft.practice.bl.services.ImageService;
 import com.insoft.practice.model.ImageEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
-
-
-import java.util.*;
+import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -22,13 +20,12 @@ import java.util.List;
 public class ImageServiceImpl implements ImageService {
 
     private final ImageRepository imageRepository;
-    private final ImageRepositoryImpl imageRepositoryCustom;
 
     public List<ImageEntity> getAll() {
         return imageRepository.findAll();
     }
 
-    @Secured({"ADMIN", "USER"})
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
     public ImageEntity storeFile(byte[] data, String fileName, String fileType, String fileSize) {
         ImageEntity imageEntity = new ImageEntity(data, fileName, fileType, fileSize);
         return imageRepository.save(imageEntity);
@@ -52,25 +49,25 @@ public class ImageServiceImpl implements ImageService {
 
 
     public List<ImageEntity> getrequired(String text, String keyWord) {
-        return imageRepositoryCustom.getRequired(text, keyWord);
+        return imageRepository.getRequired(text, keyWord);
     }
 
     public List<ImageEntity> getByTagsName(String text) {
-        return imageRepositoryCustom.getByTagsName(text);
+        return imageRepository.getByTagsName(text);
     }
 
     public String getencodedImage(byte[] image) {
         return Base64.getEncoder().encodeToString(image);
     }
 
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public void setImageName(Long id, String name) {
         ImageEntity entity = imageRepository.getOne(id);
         entity.setImageName(name);
         imageRepository.save(entity);
     }
 
-    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     public void deleteImage(Long id) {
         ImageEntity entity = imageRepository.getOne(id);
         imageRepository.delete(entity);

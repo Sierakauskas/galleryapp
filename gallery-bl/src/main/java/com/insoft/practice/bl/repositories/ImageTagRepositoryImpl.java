@@ -12,7 +12,7 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
-public class ImageTagRepositoryImpl extends SimpleJpaRepository<ImageTagEntity, Long> implements ImageTagRepository {
+class ImageTagRepositoryImpl extends SimpleJpaRepository<ImageTagEntity, Long> implements ImageTagRepository {
 
     private final EntityManager entityManager;
 

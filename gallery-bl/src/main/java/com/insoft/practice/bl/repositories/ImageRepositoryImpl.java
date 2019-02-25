@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-public class ImageRepositoryImpl extends SimpleJpaRepository<ImageEntity, Long> implements ImageRepository {
+class ImageRepositoryImpl extends SimpleJpaRepository<ImageEntity, Long> implements ImageRepository {
 
     private final EntityManager entityManager;
 
