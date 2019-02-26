@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photo Service by Mindaugas</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <!-- Optional Bootstrap theme -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-auto mr-auto"></div>
+            <div class="col-auto">
+                <div sec:authorize="!isAuthenticated()">
+                    <form th:action="@{/login}">
+                        <label>Please Login: </label>
+                        <button class="btn btn-outline-success btn-sm" type="submit">Login</button>
+                    </form>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}">
+                        <label>Welcome: <span sec:authentication="name"></span></label>
+                        <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-light bg-light mt-sm-1">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" width="30"
+                     class="d-inline-block align-top"/>
+                Home
+            </a>
+            <a class="navbar-brand" th:href="@{/results/search=}">
+                <img th:src="@{/images/Search-512.png}" alt="search logo" title="search logo" width="30"
+                     class="d-inline-block align-top"/>
+                Search
+            </a>
+        </nav>
+    </div>
+</header>
+
+<section layout:fragment="content-section" class="mt-sm-2">
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row top-buffer">
+            <div class="col-auto mr-auto"></div>
+            <div class="col-auto">powered by SpringBoot</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

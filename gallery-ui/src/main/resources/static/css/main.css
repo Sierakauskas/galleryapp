@@ -24,12 +24,6 @@
     padding: 6px;
 }
 
-.showdeleted {
-    text-align: center;
-    font-palette: light;
-    color: #ed8a02;
-}
-
 .showempty {
     text-align: center;
     font-palette: light;
