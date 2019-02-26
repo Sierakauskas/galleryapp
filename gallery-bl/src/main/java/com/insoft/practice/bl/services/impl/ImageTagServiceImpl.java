@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -21,15 +22,27 @@ public class ImageTagServiceImpl implements ImageTagService {
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @Override
     public ImageTagEntity storeTag(String tagname, Long id) {
-            ImageTagEntity tagEntity = new ImageTagEntity(tagname);
-            ImageEntity entity = imageRepository.getOne(id);
+        ImageTagEntity tagEntity = new ImageTagEntity(tagname);
+        ImageEntity entity = imageRepository.getOne(id);
+
+        int count = 0;
+        Iterator<ImageTagEntity> iterator = entity.getTags().iterator();
+        while (iterator.hasNext()) {
+            ImageTagEntity imageTagEntity = iterator.next();
+            if (tagname.equals(imageTagEntity.getTagName())) {
+                count++;
+            }
+        }
+        if(count==0) {
             entity.getTags().add(tagEntity);
             imageRepository.save(entity);
             return tagEntity;
+        }
+        return null;
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public void deleteStoredTags (ImageEntity entity) {
+    public void deleteStoredTags(ImageEntity entity) {
         Set<ImageTagEntity> newList = entity.getTags();
         entity.getTags().removeAll(newList);
         imageRepository.save(entity);

@@ -28,6 +28,7 @@ public class EditImageController {
     @RequestMapping("/edit")
     public String editImage(Model md, @RequestParam(name = "edit") Long edit) {
         md.addAttribute("entity", imageService.getImageById(edit));
+        md.addAttribute("service", imageService);
         return "editImagePage";
     }
 
@@ -35,6 +36,7 @@ public class EditImageController {
     public String editAddTag(@RequestParam("text") String tagName, @RequestParam("editTag") Long id, Model md) {
         imageTagService.storeTag(tagName, id);
         md.addAttribute("entity", imageService.getImageById(id));
+        md.addAttribute("service", imageService);
         return "editImagePage";
     }
 
@@ -42,6 +44,7 @@ public class EditImageController {
     public String deleteTag(@RequestParam(name = "deleteTag") Long id, Model md) {
         imageTagService.deleteStoredTags(imageService.getImageById(id));
         md.addAttribute("entity", imageService.getImageById(id));
+        md.addAttribute("service", imageService);
         return "editImagePage";
     }
 
@@ -49,6 +52,7 @@ public class EditImageController {
     public String changeName(@RequestParam(name = "nametext") String name, @RequestParam("editnumber") Long id, Model md) {
         imageService.setImageName(id, name);
         md.addAttribute("entity", imageService.getImageById(id));
+        md.addAttribute("service", imageService);
         return "editImagePage";
     }
 

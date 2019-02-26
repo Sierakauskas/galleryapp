@@ -46,18 +46,5 @@ public class ImageEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<ImageTagEntity> tags = new HashSet<>();
-
-    public String getTagName() {
-        String names = "";
-        Iterator<ImageTagEntity> iterator = tags.iterator();
-        while (iterator.hasNext()) {
-            ImageTagEntity imageTagEntity = iterator.next();
-            names += "#" + imageTagEntity.getTagName() + " ";
-        }
-        if (names.equals("")) {
-            return "No Tags";
-        }
-        return names;
-    }
 }
 

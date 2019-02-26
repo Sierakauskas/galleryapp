@@ -53,9 +53,12 @@
     <!--upload file-->
     <div sec:authorize="isAuthenticated()">
         <div class="row top-buffer container">
-            <div class="col-sm-12 ml-auto"><h5>Upload a photo:</h5></div>
+            <div class="col-sm-12 ml-auto"><h5>Upload a photo: </h5>
+                <div th:if="${wrongType}">
+                    <span style="color: red" th:text="${wrongType}"></span>
+                </div>
+            </div>
             <div class="clearfix visible-sm-block"></div>
-
             <form method="post" th:action="@{/saveImage}" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-7">
@@ -125,10 +128,10 @@
         </thead>
         <tbody>
         <tr>
-        <tr th:each="user: ${users}">
+        <tr th:each="user: ${service.getfive()}">
             <td th:text="${user.getImageId()}">vasile</td>
             <td th:text="${user.getImageName()}">45</td>
-            <td th:text="${user.getTagName()}">45</td>
+            <td th:text="${service.getTagName(user.getImageId())}">45</td>
             <td th:text="${user.getImageType()}">45</td>
             <td th:text="${user.getImageSize()}">45</td>
             <td><a th:href="@{'/imageDisplay?id='+${user.getImageId()}}" style="background: white"><img

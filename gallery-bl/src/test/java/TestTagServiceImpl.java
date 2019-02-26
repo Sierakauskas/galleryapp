@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.any;
 
 @ExtendWith(SpringExtension.class)
@@ -30,7 +31,7 @@ class TestTagServiceImpl {
 
     @Test
 //    @DisplayName("Test Entity:")
-    public void addAndDeleteTag() {
+    public void testAddAndDeleteTag() {
         Long id = 1L;
         String tagname = "tagas";
 
@@ -39,11 +40,18 @@ class TestTagServiceImpl {
         Mockito.when(imageRepository.getOne(id)).thenReturn(entity);
         Mockito.when(imageRepository.save(any())).thenReturn(entity);
 
+        // test if tag name is the same in ImageTagEntity
         ImageTagEntity entityTag = imageTagService.storeTag(tagname, id);
         assertEquals(tagname, entityTag.getTagName());
         assertEquals(1, entity.getTags().size());
 
+        // test if method does not allow to store tags with same name
+        ImageTagEntity entityTag1 = imageTagService.storeTag(tagname, id);
+        assertNull(entityTag1);
+
+        // test if tag is deleted
         imageTagService.deleteStoredTags(entity);
         assertEquals(0, entity.getTags().size());
+
     }
 }

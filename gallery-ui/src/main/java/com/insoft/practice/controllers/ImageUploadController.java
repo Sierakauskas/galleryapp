@@ -30,6 +30,7 @@ public class ImageUploadController {
     @RequestMapping("/")
     public String Welcome(Model md) {
         md.addAttribute("users", imageService.getfive());
+        md.addAttribute("service", imageService);
         return "homePageTemplate";
     }
 
@@ -41,8 +42,14 @@ public class ImageUploadController {
 
     @PostMapping("/saveImage")
     public String addImage(Model md, @RequestParam(value = "file", required = false) @RequestBody MultipartFile file) {
+        md.addAttribute("service", imageService);
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String fileType = file.getContentType();
+        if (!fileType.startsWith("image/") || file.getSize()<5) {
+            md.addAttribute("wrongType", "Sorry, not an image File");
+            md.addAttribute("users", imageService.getfive());
+            return "homePageTemplate";
+        }
         fileType = fileType.replace("image/", ".");
         try {
             // Check if the file's name contains invalid characters
@@ -109,6 +116,7 @@ public class ImageUploadController {
                               @RequestParam(value = "optradio", defaultValue = "ID")
                               String optradio) {
         md.addAttribute("lastchecked", optradio);
+        md.addAttribute("service", imageService);
         if (searchtext.equals("")) {
             md.addAttribute("searchresult", "Showing: All");
             md.addAttribute("users", imageService.getAll());

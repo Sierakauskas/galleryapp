@@ -18,7 +18,8 @@
 <body>
 <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" th:href="@{/}">
-        <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" width="30" class="d-inline-block align-top"/>
+        <img th:src="@{/images/upload.png}" alt="upload logo" title="Upload logo" width="30"
+             class="d-inline-block align-top"/>
         Home
     </a>
 </nav>
@@ -28,14 +29,15 @@
     <form method="post" th:action="@{/results/search=}" enctype="multipart/form-data">
         <div class="row col-sm-12 col-md-6 col-lg-6 mt-3">
             <!--<div class="col-auto">-->
-                <!--<img th:src="@{/images/Search-512.png}" alt="search logo" title="Search logo" class="uploadsearch" />-->
+            <!--<img th:src="@{/images/Search-512.png}" alt="search logo" title="Search logo" class="uploadsearch" />-->
             <!--</div>-->
             <p>by:</p>
             <label class="radio col-sm-auto">
                 <input type="radio" name="optradio" value="ID" th:checked="${#strings.equals(lastchecked, 'ID')}">ID
             </label>
             <label class="radio col-sm-auto">
-                <input type="radio" name="optradio" value="File Name" th:checked="${#strings.equals(lastchecked, 'File Name')}">File Name
+                <input type="radio" name="optradio" value="File Name"
+                       th:checked="${#strings.equals(lastchecked, 'File Name')}">File Name
             </label>
             <label class="radio col-sm-auto">
                 <input type="radio" name="optradio" value="Tag" th:checked="${#strings.equals(lastchecked, 'Tag')}">Tag
@@ -51,7 +53,8 @@
 
             <!--<div class="col-sm-12 col-md-6 col-lg-4 ">-->
             <div class="col-auto">
-                <input class="form-control" type="text" name="searchtext" th:placeholder="${showsearch}" aria-label="Search">
+                <input class="form-control" type="text" name="searchtext" th:placeholder="${showsearch}"
+                       aria-label="Search">
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <input class="btn btn-outline-primary" type="submit" value="Search">
@@ -65,46 +68,50 @@
             <span th:text="${users.size()}"></span>
         </div>
     </div>
+
     <div class="row mt-1">
-        <table class="table table-responsive" id = "table" style="text-align: center">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">File Name</th>
-                <th scope="col">Tags</th>
-                <th scope="col">Type</th>
-                <th scope="col">Size</th>
-                <th scope="col">Image</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <tr th:each="user: ${users}">
+        <div th:if="${users.size()>0}">
+            <table class="table table-responsive" id="table" style="text-align: center">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">Tags</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <tr th:each="user: ${users}">
 
-                <td th:text="${user.getImageId()}"></td>
-                <td th:text="${user.getImageName()}">45</td>
-                <td th:text="${user.getTagName()}">45</td>
-                <td th:text="${user.getImageType()}">45</td>
-                <td th:text="${user.getImageSize()}">45</td>
-                <td><a th:href="@{'/imageDisplay?id='+${user.getImageId()}}" style="background: white"><img th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100"/></a></td>
-                <td>
-                    <form th:action="@{/edit}" th:value="${user.getImageId()}">
-                        <button class="btn btn-outline-primary" type="submit" name="edit" th:value="${user.getImageId()}">
-                            <div sec:authorize="isAuthenticated()"><span>Edit</span></div>
-                            <div sec:authorize="!isAuthenticated()"><span>View</span></div>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
+                    <td th:text="${user.getImageId()}"></td>
+                    <td th:text="${user.getImageName()}">45</td>
+                    <td th:text="${service.getTagName(user.getImageId())}">45</td>
+                    <td th:text="${user.getImageType()}">45</td>
+                    <td th:text="${user.getImageSize()}">45</td>
+                    <td><a th:href="@{'/imageDisplay?id='+${user.getImageId()}}" style="background: white"><img
+                            th:src="@{'/smallimageDisplay?id='+${user.getImageId()}}" height="100"/></a></td>
+                    <td>
+                        <form th:action="@{/edit}" th:value="${user.getImageId()}">
+                            <button class="btn btn-outline-primary" type="submit" name="edit"
+                                    th:value="${user.getImageId()}">
+                                <div sec:authorize="isAuthenticated()"><span>Edit</span></div>
+                                <div sec:authorize="!isAuthenticated()"><span>View</span></div>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
 
         <div th:if="${emptytext}">
-            <div class="row">
-                <div class="col-md-12 col-md-offset-1"><p class="showempty" th:text="${emptytext}"></p></div>
+            <div class="row mt-1">
+                <div class="col-md-12 center-block"><p class="showempty" th:text="${emptytext}"></p></div>
             </div>
         </div>
     </div>
