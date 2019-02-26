@@ -1,19 +1,20 @@
+package com.insoft;
+
 import com.insoft.practice.bl.exception.FileStorageException;
 import com.insoft.practice.bl.repositories.ImageRepository;
 import com.insoft.practice.bl.services.ImageService;
 import com.insoft.practice.bl.services.impl.ImageServiceImpl;
 import com.insoft.practice.model.ImageEntity;
+import com.insoft.practice.model.ImageTagEntity;
+import jdk.nashorn.api.scripting.ScriptUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,14 +30,13 @@ class TestServiceImpl {
     @Mock
     ImageRepository imageRepository;
 
-    @Mock
-    ImageRepository imageTagRepository;
-
     @BeforeEach
     public void beforeEachTest() {
         // for initialization of mocks
         MockitoAnnotations.initMocks(this);
         imageService = new ImageServiceImpl(imageRepository);
+
+
     }
 
     @Test
@@ -50,7 +50,6 @@ class TestServiceImpl {
 
     @Test
     public void testGetImageByIdException() {
-//         can't implement
         when(imageRepository.findById(ID)).thenReturn(Optional.empty());
         assertThrows(FileStorageException.class, () -> {
             imageService.getImageById(0L);
@@ -58,7 +57,7 @@ class TestServiceImpl {
     }
 
     @Test
-    public void getFiveFromList() {
+    public void testGetFiveFromList() {
         ImageEntity entityForTest1 = new ImageEntity(null, "mountain", ".png", "100 Kb");
         ImageEntity entityForTest2 = new ImageEntity(null, "mountain", ".png", "100 Kb");
         ImageEntity entityForTest3 = new ImageEntity(null, "mountain", ".png", "100 Kb");
@@ -76,7 +75,7 @@ class TestServiceImpl {
     }
 
     @Test
-    public void saveImageName() {
+    public void testSaveImageName() {
         ImageEntity entityForTest = new ImageEntity(null, "mountain", ".png", "100 Kb");
 
         when(imageRepository.getOne(ID)).thenReturn(entityForTest);
@@ -88,14 +87,31 @@ class TestServiceImpl {
     }
 
     @Test
-    public void deleteImageEntity() {
+    public void testDeleteImageEntity() {
         ImageEntity entityForTest = new ImageEntity(null, "mountain", ".png", "100 Kb");
 
         when(imageRepository.getOne(ID)).thenReturn(entityForTest);
-
         imageService.deleteImage(ID);
-
-        // todo
-        // kaip implementuoti repository.remove()
     }
+
+    @Test
+    public void testGetTagNames() {
+        ImageEntity entityForTest = new ImageEntity(null, "mountain", ".png", "100 Kb");
+
+        // test with no Tags
+        when(imageRepository.getOne(ID)).thenReturn(entityForTest);
+        String tagNoName = imageService.getTagName(ID);
+        assertEquals(tagNoName, "No Tags");
+
+        // test with added Tag
+        ImageTagEntity imageTagEntity = new ImageTagEntity();
+        imageTagEntity.setTagName("High mountain");
+        Set<ImageTagEntity> newSet = new HashSet<>();
+        newSet.add(imageTagEntity);
+        entityForTest.setTags(newSet);
+
+        String tagWithName = imageService.getTagName(ID);
+        assertEquals(tagWithName, "#High mountain ");
+    }
+
 }

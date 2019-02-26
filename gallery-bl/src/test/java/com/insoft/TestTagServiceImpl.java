@@ -1,3 +1,5 @@
+package com.insoft;
+
 import com.insoft.practice.bl.repositories.ImageRepository;
 import com.insoft.practice.bl.services.impl.ImageTagServiceImpl;
 import com.insoft.practice.model.ImageEntity;
@@ -22,15 +24,7 @@ class TestTagServiceImpl {
     @Mock
     ImageRepository imageRepository;
 
-//    @BeforeEach
-//    public void beforeEachTest() {
-//        // for initialization of mocks
-//        MockitoAnnotations.initMocks(this);
-//        imageTagService = new ImageTagServiceImpl(imageRepository);
-//    }
-
     @Test
-//    @DisplayName("Test Entity:")
     public void testAddAndDeleteTag() {
         Long id = 1L;
         String tagname = "tagas";
