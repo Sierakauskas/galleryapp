@@ -10,7 +10,6 @@ public interface ImageService {
     List<ImageEntity> getByTagsName (String text);
     ImageEntity storeFile(byte[] data, String fileName, String fileType, String fileSize);
     ImageEntity getImageById(Long id);
-    String getencodedImage (byte [] image);
     String getTagName(Long id);
     void setImageName(Long id, String name);
     void deleteImage(Long id);

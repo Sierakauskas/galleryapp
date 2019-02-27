@@ -92,10 +92,8 @@
             </div>
 
 
-            <div th:if="${emptytext}">
-                <div class="row mt-1">
-                    <div class="col-md-12 center-block"><p class="showempty" th:text="${emptytext}"></p></div>
-                </div>
+            <div th:if="${emptytext}" class="container row row justify-content-md-center mt-3">
+                <span style="color: dodgerblue" th:text="${emptytext}"></span>
             </div>
         </div>
 

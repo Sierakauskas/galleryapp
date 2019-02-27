@@ -87,14 +87,6 @@ class TestServiceImpl {
     }
 
     @Test
-    public void testDeleteImageEntity() {
-        ImageEntity entityForTest = new ImageEntity(null, "mountain", ".png", "100 Kb");
-
-        when(imageRepository.getOne(ID)).thenReturn(entityForTest);
-        imageService.deleteImage(ID);
-    }
-
-    @Test
     public void testGetTagNames() {
         ImageEntity entityForTest = new ImageEntity(null, "mountain", ".png", "100 Kb");
 
@@ -109,7 +101,6 @@ class TestServiceImpl {
         Set<ImageTagEntity> newSet = new HashSet<>();
         newSet.add(imageTagEntity);
         entityForTest.setTags(newSet);
-
         String tagWithName = imageService.getTagName(ID);
         assertEquals(tagWithName, "#High mountain ");
     }

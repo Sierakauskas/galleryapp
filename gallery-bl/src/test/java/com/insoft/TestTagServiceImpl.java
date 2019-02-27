@@ -46,6 +46,5 @@ class TestTagServiceImpl {
         // test if tag is deleted
         imageTagService.deleteStoredTags(entity);
         assertEquals(0, entity.getTags().size());
-
     }
 }

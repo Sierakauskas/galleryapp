@@ -71,10 +71,6 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.getByTagsName(text);
     }
 
-    public String getencodedImage(byte[] image) {
-        return Base64.getEncoder().encodeToString(image);
-    }
-
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public void setImageName(Long id, String name) {
         ImageEntity entity = imageRepository.getOne(id);
