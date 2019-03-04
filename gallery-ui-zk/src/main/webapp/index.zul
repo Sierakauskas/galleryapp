@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+    </head>
+    <body>
+        <xh:div>
+            <sh:if test="${'a' eq 'a'}">
+                <xh:div>
+                    Wh
+                </xh:div>
+            </sh:if>
+        </xh:div>
+        Hello
+    </body>
+</html>
+
+
+

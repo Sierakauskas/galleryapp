@@ -1,16 +1,15 @@
 package com.insoft.practice.bl.services.impl;
 
-
 import com.insoft.practice.bl.exception.FileStorageException;
 import com.insoft.practice.bl.repositories.ImageRepository;
 import com.insoft.practice.bl.services.ImageService;
 import com.insoft.practice.model.ImageEntity;
 import com.insoft.practice.model.ImageTagEntity;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
+import org.hibernate.LazyInitializationException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
-
-import java.util.Base64;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -52,15 +51,19 @@ public class ImageServiceImpl implements ImageService {
     public String getTagName(Long id) {
         ImageEntity entity = imageRepository.getOne(id);
         String names = "";
-        Iterator<ImageTagEntity> iterator = entity.getTags().iterator();
-        while (iterator.hasNext()) {
-            ImageTagEntity imageTagEntity = iterator.next();
-            names += "#" + imageTagEntity.getTagName() + " ";
-        }
-        if (names.equals("")) {
+        try{
+            Iterator<ImageTagEntity> iterator = entity.getTags().iterator();
+            while (iterator.hasNext()) {
+                ImageTagEntity imageTagEntity = iterator.next();
+                names += "#" + imageTagEntity.getTagName() + " ";
+            }
+            if (names.equals("")) {
+                return "No Tags";
+            }
+            return names;
+        } catch (LazyInitializationException e) {
             return "No Tags";
         }
-        return names;
     }
 
     public List<ImageEntity> getrequired(String text, String keyWord) {

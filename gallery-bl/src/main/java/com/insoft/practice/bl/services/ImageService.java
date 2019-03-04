@@ -1,6 +1,8 @@
 package com.insoft.practice.bl.services;
 
 import com.insoft.practice.model.ImageEntity;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 public interface ImageService {

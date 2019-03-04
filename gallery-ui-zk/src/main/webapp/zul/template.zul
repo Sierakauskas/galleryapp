@@ -1,0 +1,70 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+
+<!DOCTYPE html>
+<xh:html xmlns="native" xmlns:zul="http://www.zkoss.org/2005/zul" xmlns:xh="xhtml" xmlns:sh="shadow"
+         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8"/>
+        <xh:zkhead stubonly="false"/>
+        <!--<link rel="stylesheet" href="${c:encodeURL('main.css')}"/>-->
+        <link rel="stylesheet" type="text/css" href="${c:encodeURL('/webjars/bootstrap/css/bootstrap.min.css')}"/>
+        <!-- Optional Bootstrap theme -->
+        <link rel="stylesheet" href="${c:encodeURL('/webjars/bootstrap/css/bootstrap-theme.min.css')}"/>
+        <link rel="stylesheet" href="${c:encodeURL('/main.css')}"/>
+        <script src="${c:encodeURL('/webjars/bootstrap/js/bootstrap.min.js')}"/>
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                <nav class="navbar navbar-light bg-light mt-sm-1">
+                    <a class="navbar-brand" href="@{/}">
+                        <img src="${c:encodeURL('/images/upload.png')}" alt="upload logo" title="Upload logo" width="30"
+                             class="d-inline-block align-top"/>
+                        Home
+                    </a>
+                    <a class="navbar-brand" href="@{/results/search=}">
+                        <img src="${c:encodeURL('/images/Search-512.png')}" alt="search logo" title="search logo" width="30"
+                             class="d-inline-block align-top"/>
+                        Search
+                    </a>
+                </nav>
+            </div>
+        </header>
+        <!-- Page content -->
+        <xh:div self="@{insert(pageContent)}" class="mt-3"/>
+
+        <footer>
+            <div class="container">
+                <div class="row top-buffer">
+                    <div class="col-auto mr-auto"></div>
+                    <div class="col-auto">powered by SpringBoot</div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</xh:html >
+
+        <!--<zk>-->
+        <!--What's your name: <textbox id="demoInput"/>-->
+        <!--<button id="demoButton" label="Submit" onClick='demoLabel.setValue("Hello " + demoInput.getValue() + "!")'/>-->
+        <!--<separator/>-->
+        <!--<label id="demoLabel"/>-->
+        <!--</zk>-->
+
+        <!--<zk xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.zkoss.org/2005/zul/zul.xsd">-->
+        <!--<separator></separator>-->
+        <!--<window vflex="true"  position="center" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ar.gfritz.TestVM')">-->
+        <!--<vlayout>-->
+        <!--<label value="${labels.test.title}"/>-->
+        <!--<label value="@load(vm.name)"/>-->
+        <!--<button label="${labels.test.button}" onClick="@command('ook')"/>-->
+        <!--<a href="/logout">logout</a>-->
+        <!--</vlayout>-->
+        <!--</window>-->
+        <!--</zk>-->
+
+

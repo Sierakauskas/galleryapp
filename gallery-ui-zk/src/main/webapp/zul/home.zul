@@ -1,0 +1,159 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul" ?>
+<?page complete="true"?>
+
+
+<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.HomePageVm')">
+        <div class="container">
+
+            <div class="row row justify-content-md-center">
+
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <h1>Photo
+                        <img src="${c:encodeURL('/images/upload.png')}" alt="upload logo" title="Upload logo"
+                             class="uploads"/>
+                        <!--th:src="@{.../images/upload.png}" th:alt-title="logo" -->
+                        Service
+                    </h1>
+                </div>
+                <div class="clearfix visible-sm-block"></div>
+            </div>
+            <!--upload file-->
+            <xh:div class="row top-buffer container">
+                <div class="col-sm-12 ml-auto">
+                    <h5>Upload a photo:</h5>
+                    <!--<div th:if="${wrongType}">-->
+                    <!--<span style="color: red" text="${wrongType}"></span>-->
+                    <!--</div>-->
+                </div>
+                <div class="clearfix visible-sm-block"></div>
+                <zul:fileupload upload="true" label="Fileupload" onUpload="@command('doUploadImage', media=event.media)"/>
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-7">
+                            <input type="file" name="file" class="form-control" required="@validator()"/>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-5">
+                            <input class="btn btn-primary" type="submit" value="Upload" id="btnUpload"/>
+                        </div>
+                    </div>
+                </form>
+                <button upload="true" label="Fileupload" onUpload="@command('doUploadImage', media=event.media)">Upload</button>
+            </xh:div>
+            <!--upload file-->
+
+            <!--search-->
+            <div class="row top-buffer">
+                <div class="col-sm-12 ml-auto">
+                    <h5>Search for a photo:</h5>
+                </div>
+                <div class="clearfix visible-sm-block"></div>
+            </div>
+
+
+            <form method="post" action="@{/results/search=}" enctype="multipart/form-data">
+                <div class="row col-sm-12 col-md-8 col-lg-8">
+                    <p>by:</p>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="ID" checked="@init()"/>ID
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="File Name"/>File Name
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="Tag"/>Tag
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="Type"/>Type
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="Size"/>Size
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <input class="form-control" type="text" name="searchtext" placeholder="Search"
+                               aria-label="Search"/>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <input class="btn btn-outline-primary" type="submit" value="Search"/>
+                    </div>
+                </div>
+            </form>
+            <!--search-->
+
+            <div class="row top-buffer">
+                <div class="col-sm-12">
+                    <h6>Recently uploaded:</h6>
+                </div>
+            </div>
+
+            <xh:div>
+                <sh:if test="${vm.entityList.size() != '0'}">
+                    <xh:div>
+                        <xh:table class="table table-responsive" id="table" style="text-align: center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">File Name</th>
+                                    <th scope="col">Tags</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <xh:tbody>
+                                    <!--<tr label="${user}" forEach="${'entityList'}">-->
+                                    <xh:tr forEach="${vm.entityList}" >
+                                        <!--<custom-attributes field="${each}"/>-->
+                                    <!--<sh:forEach items="@load(vm.entityList)">-->
+                                        <td>${each.imageId}</td>
+                                        <td>${each.imageName}</td>
+                                        <td>${imageService.getTagName(each.imageId)}</td>
+                                        <td>${each.imageType}</td>
+                                        <td>${each.imageSize}</td>
+                                        <!--<td><zul:image content="@load(each.image)" style="height:30px"/></td>-->
+                                        <!--<td><zul:image content="@load(each.image) @converter('com.insoft.practice.converter.ImageToZkImageConverter')" /></td>-->
+
+
+                                        <td>
+                                            <zul:image content="${vm.getSmallImage(each.imageId)}" style="height:140px"></zul:image>
+                                            <a zul:imagecontent="${vm.getLargeImage(each.imageId)}">Full View</a>
+                                        </td>
+
+                                        <!--<td><image src="${c:encodeURL(vm.doShowLargeImage(each.imageId))}" /></td>-->
+                                        <td>
+                                            <form action="@{/edit}" value="${user.getImageId()}">
+                                                <button class="btn btn-outline-primary" type="submit" name="edit"
+                                                        value="${user.getImageId()}">
+                                                    <span>View</span>
+                                                </button>
+                                            </form>
+                                        </td>
+
+                                    </xh:tr>
+                                    <!--</sh:forEach>-->
+                            </xh:tbody>
+                        </xh:table>
+                    </xh:div>
+                </sh:if>
+            </xh:div>
+
+            <xh:div>
+                <sh:if test="${vm.entityList.size() == '0'}">
+                    <div>
+                        <div class="row justify-content-md-center">
+                        <span style="color: red">No Images in database yet</span>
+                        </div>
+                    </div>
+                </sh:if>
+            </xh:div>
+
+
+        </div>
+
+
+    </xh:div>
+</zk>

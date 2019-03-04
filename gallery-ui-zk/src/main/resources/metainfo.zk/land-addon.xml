@@ -1,0 +1,18 @@
+<!DOCTYPE language-addon>
+<language-addon>
+    <addon-name>app-addons</addon-name>
+    <language-name>xul/html</language-name>
+
+    <!--<component>-->
+        <!--<component-name>component</component-name>-->
+        <!--<component-class>com.insoft.practice.bl</component-class>-->
+        <!--<macro-uri>~./services/ImageService.java</macro-uri>-->
+    <!--</component>-->
+
+    <!--org.springframework.boot.autoconfigure.EnableAutoConfiguration=\-->
+    <!--org.zkoss.zkspringboot.ZkAutoConfiguration,\-->
+    <!--org.zkoss.zkspringboot.ZkHomepageConfiguration,\-->
+    <!--org.zkoss.zkspringboot.ZkWebMvcConfiguration,\-->
+    <!--org.zkoss.zkspringboot.ZkMaxAutoConfiguration-->
+
+</language-addon>

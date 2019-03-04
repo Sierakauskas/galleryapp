@@ -22,6 +22,7 @@
         <module>gallery-bl</module>
         <module>gallery-model</module>
         <module>gallery-ui</module>
+        <module>gallery-ui-zk</module>
     </modules>
 
     <properties>
@@ -32,6 +33,7 @@
         <imgscalr-lib>4.2</imgscalr-lib>
         <junit-jupiter-engine>5.1.0</junit-jupiter-engine>
         <mockito-all>1.10.19</mockito-all>
+        <zk.version>8.6.0.1</zk.version>
     </properties>
 
     <dependencies>
