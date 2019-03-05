@@ -20,7 +20,7 @@
         <header>
             <div class="container">
                 <nav class="navbar navbar-light bg-light mt-sm-1">
-                    <a class="navbar-brand" href="@{/}">
+                    <a class="navbar-brand" href="/">
                         <img src="${c:encodeURL('/images/upload.png')}" alt="upload logo" title="Upload logo" width="30"
                              class="d-inline-block align-top"/>
                         Home

@@ -1,0 +1,95 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul" ?>
+<?page complete="true"?>
+
+
+<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.EditImageVm')">
+        <div class="container">
+            <div class="row col-sm-12 col-md-6 col-lg-6 mt-4">
+                <h6>Edit Picture:</h6>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <xh:a href="/zul/showImage.zul?id=${vm.imageId}" style="background: white">
+                        <zul:image content="${vm.getLargeImage()}" class="showImage"/>
+                    </xh:a>
+                        <form action="@{/deleteImage}" class="mt-2">
+                            <button type="submit" name="imageid" value="${entity.getImageId()}" class="btn btn-danger">
+                                Delete Picture
+                            </button>
+                        </form>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-8 clearfix visible-sm-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h6>
+                                <small class="text-muted">ID:</small>
+                                <span class="mt-1">${vm.imageEntity.imageId}</span>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h6 class="mt-2">
+                                <small class="text-muted">Type:</small>
+                                <span class="mt-1">${vm.imageEntity.imageType}</span>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h6 class="mt-2">
+                                <small class="text-muted">Size:</small>
+                                <span class="mt-1">${vm.imageEntity.imageSize}</span>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h6 class="mt-2">
+                                <small class="text-muted">File Name:</small>
+                                <!--<span class="mt-1">${vm.imageEntity.imageName}</span>-->
+                                <zul:label value="@load(vm.imageEntity.imageName)"/>
+                            </h6>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                <zul:hbox>
+                                    <zul:textbox type="text" value="@bind(vm.imageName)" name="name" class="form-control" required="@validator('formBeanValidator')" />
+                                    <zul:button type="submit" class="btn btn-primary btn-sm mt-1" onClick="@command('doChangeName')">Change File Name
+                                    </zul:button>
+                                </zul:hbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h6 class="mt-3">
+                                <small class="text-muted">Tags:</small>
+                                <span class="mt-1">${imageService.getTagName(vm.imageId)}</span>
+                            </h6>
+                                <form action="@{/deleteTag}" class="mt-2">
+                                    <button name="deleteTag" type="submit" value="${entity.getImageId()}"
+                                            class="btn btn-warning btn-sm">Delete All Tags
+                                    </button>
+                                    <!--<button class="btn" name="deleteTag" onClick="window.location.reload()"></button>-->
+                                </form>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                <form action="@{/editTag}" class="mt-2">
+                                    <input type="text" name="text" class="form-control" required="@validator()"/>
+                                    <button type="submit" name="editTag" value="${entity.getImageId()}"
+                                            class="btn btn-primary btn-sm mt-1">Add Tag
+                                    </button>
+                                </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clearfix visible-sm-block"></div>
+            </div>
+
+        </div>
+
+
+    </xh:div>
+</zk>

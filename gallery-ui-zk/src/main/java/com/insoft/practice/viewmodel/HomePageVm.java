@@ -3,16 +3,17 @@ package com.insoft.practice.viewmodel;
 import com.insoft.practice.bl.exception.FileStorageException;
 import com.insoft.practice.bl.services.ImageService;
 import com.insoft.practice.model.ImageEntity;
+import lombok.Getter;
 import lombok.extern.apachecommons.CommonsLog;
 import org.apache.commons.io.IOUtils;
 import org.imgscalr.Scalr;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.UploadEvent;
-import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 
 import javax.imageio.ImageIO;
@@ -23,27 +24,22 @@ import java.util.List;
 import java.util.Objects;
 
 @CommonsLog
-//@VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class HomePageVm implements Serializable {
     private static final long serialVersionUID = -3440818130908355085L;
 
     @WireVariable
     private ImageService imageService;
 
+    @Getter
     private List<ImageEntity> entityList;
 
-    public ImageService getImageService () {
-        return imageService;
-    }
 
-    @Command
-    public List<ImageEntity> getEntityList() {
+    @Init
+    @NotifyChange("entityList")
+    public void init() {
         entityList = imageService.getfive();
-        return entityList;
     }
 
-
-//    @Listen("onUpload = #btnUpload")
     @Command
     public void doUploadImage(@BindingParam("media") Media media) throws IOException {
         if (media != null) {
@@ -75,17 +71,8 @@ public class HomePageVm implements Serializable {
         }
     }
 
-
-    public void btnUpload_onUpload (UploadEvent event) {
-
-        event.getMedia();
-
-    }
-
-
     public AImage getLargeImage (Long id) throws IOException {
-        AImage aimage = new AImage("large", imageService.getImageById(id).getImage());
-        return aimage;
+        return new AImage(imageService.getImageById(id).getImageName(), imageService.getImageById(id).getImage());
     }
 
     public AImage getSmallImage (Long id) throws IOException {
@@ -94,16 +81,20 @@ public class HomePageVm implements Serializable {
         BufferedImage srcImage = ImageIO.read(is);
         BufferedImage scaledImage = Scalr.resize(srcImage, 150);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(scaledImage, "gif", os);
+        ImageIO.write(scaledImage, "png", os);
         is = new ByteArrayInputStream(os.toByteArray());
-        AImage aimage = new AImage("small", is);
-        return aimage;
+        return new AImage(imageService.getImageById(id).getImageName(), is);
     }
 
+    @Command
+    public void showImageNewZul(Long id) {
+        doShowLargeImage(id);
+        Executions.createComponents("showImage.zul", null, null);
+    }
 
-
-    public void doShowLargeImage(Long imageId, javax.servlet.http.HttpServletResponse response) {
-//        HttpServletResponse response = (HttpServletResponse)Executions.getCurrent().getNativeResponse();
+    @Command
+    public void doShowLargeImage(@BindingParam("imageId") Long imageId) {
+        HttpServletResponse response = (HttpServletResponse)Executions.getCurrent().getNativeResponse();
         ImageEntity item = imageService.getImageById(imageId);
         response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
         try (OutputStream os = response.getOutputStream()) {
@@ -136,15 +127,4 @@ public class HomePageVm implements Serializable {
             log.error(e);
         }
     }
-
-    //    @Init
-    public void listGetFive() {
-        if (!imageService.getfive().isEmpty()) {
-            entityList = imageService.getfive();
-        }
-
-
-    }
-
-
 }

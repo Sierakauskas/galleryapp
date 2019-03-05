@@ -1,6 +1,7 @@
 package com.insoft.practice.model;
 
 import lombok.*;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Entity(name = "TagName")
 @Table(name = "tag")
 @EqualsAndHashCode
+@Proxy(lazy=false)
 public class ImageTagEntity {
 
     @Id

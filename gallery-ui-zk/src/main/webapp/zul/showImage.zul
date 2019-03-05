@@ -1,0 +1,18 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<!DOCTYPE html>
+<html xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.ViewImageVm')">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Title</title>
+    </head>
+    <body>
+        <xh:div>
+            <xh:span href="${c:encodeURL(vm.doShowLargeImage())}"/>
+        </xh:div>
+        Hello
+    </body>
+    </xh:div>
+</html>

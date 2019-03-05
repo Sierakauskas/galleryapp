@@ -114,25 +114,17 @@
                                         <td>${imageService.getTagName(each.imageId)}</td>
                                         <td>${each.imageType}</td>
                                         <td>${each.imageSize}</td>
-                                        <!--<td><zul:image content="@load(each.image)" style="height:30px"/></td>-->
-                                        <!--<td><zul:image content="@load(each.image) @converter('com.insoft.practice.converter.ImageToZkImageConverter')" /></td>-->
-
-
+                                        <xh:td>
+                                            <xh:a href="/zul/showImage.zul?id=${each.imageId}" style="background: white"><zul:image content="${vm.getSmallImage(each.imageId)}" style="height:140px"/></xh:a>
+                                        </xh:td>
                                         <td>
-                                            <zul:image content="${vm.getSmallImage(each.imageId)}" style="height:140px"></zul:image>
-                                            <a zul:imagecontent="${vm.getLargeImage(each.imageId)}">Full View</a>
-                                        </td>
-
-                                        <!--<td><image src="${c:encodeURL(vm.doShowLargeImage(each.imageId))}" /></td>-->
-                                        <td>
-                                            <form action="@{/edit}" value="${user.getImageId()}">
+                                            <form action="/zul/editImage.zul">
                                                 <button class="btn btn-outline-primary" type="submit" name="edit"
-                                                        value="${user.getImageId()}">
+                                                        value="${each.imageId}">
                                                     <span>View</span>
                                                 </button>
                                             </form>
                                         </td>
-
                                     </xh:tr>
                                     <!--</sh:forEach>-->
                             </xh:tbody>

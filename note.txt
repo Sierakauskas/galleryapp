@@ -12,3 +12,9 @@ bootStrap
         <!--</dependency>-->
 
  <!--xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">-->
+
+<!--onClick='Executions.sendRedirect("${vm.getSmallImage(each.imageId)}");'-->
+<!--"@command(vm.getLargeImage(each.imageId))"-->
+<!--"${c:encodeURL(vm.doShowLargeImage(each.imageId)}"-->
+<!--<xh:a href="${c:encodeURL(vm.doShowLargeImage(each.imageId))}">-->
+<property name="hibernate.enable_lazy_load_no_trans">true</property>

@@ -1,6 +1,8 @@
 package com.insoft.practice.model;
 
 import lombok.*;
+import org.hibernate.annotations.Proxy;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.*;
@@ -10,6 +12,7 @@ import java.util.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Proxy(lazy=false)
 public class ImageEntity {
 
     @Id
