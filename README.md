@@ -1,3 +1,3 @@
 # GalleryApp
 
-Spring gallery with thymeleaf
+Spring gallery with thymeleaf and zkoss
