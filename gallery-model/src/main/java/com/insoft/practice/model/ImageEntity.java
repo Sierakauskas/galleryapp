@@ -43,7 +43,7 @@ public class ImageEntity {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE,
-    })
+    }, fetch=FetchType.EAGER)
     @JoinTable(name = "image_tag",
             joinColumns = @JoinColumn(name = "image_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")

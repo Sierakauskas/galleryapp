@@ -15,9 +15,10 @@ import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Checkbox;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
@@ -33,6 +34,8 @@ public class HomePageVm implements Serializable {
     @Getter
     private List<ImageEntity> entityList;
 
+    private Checkbox tosCheckbox;
+
 
     @Init
     @NotifyChange("entityList")
@@ -45,34 +48,24 @@ public class HomePageVm implements Serializable {
         if (media != null) {
             String fileName = media.getName();
             String fileType = media.getContentType();
-//            if (!fileType.startsWith("image/") || file.getSize() < 5) {
-////                md.addAttribute("wrongType", "Sorry, not an image File");
-////                md.addAttribute("users", imageService.getfive());
-////                return "homePageTemplate";
-////            }
-            fileType = fileType.replace("image/", ".");
-            try {
-                // Check if the file's name contains invalid characters
-                if (fileName.contains("..")) {
-                    throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-                }
+            if (!fileType.startsWith("image/") || media.getByteData().length<5 || fileType.startsWith("image/webp")) {
+                Clients.showNotification("Invalid type format","warning",tosCheckbox,"end_before",3000);
+            } else {
+                fileType = fileType.replace("image/", ".");
+                try {
 //                byte[] data = media.getByteData();
-                byte[] data = IOUtils.toByteArray(media.getStreamData());
-
-                long fileSizeinKb = data.length;
-                fileSizeinKb /= 1024;
-                String fileSize = Objects.toString(fileSizeinKb, null);
-                fileSize += " Kb";
-                ImageEntity imageEntity = imageService.storeFile(data, fileName, fileType, fileSize);
-
-            } catch (Exception ex) {
-                throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+                    byte[] data = IOUtils.toByteArray(media.getStreamData());
+                    long fileSizeinKb = data.length;
+                    fileSizeinKb /= 1024;
+                    String fileSize = Objects.toString(fileSizeinKb, null);
+                    fileSize += " Kb";
+                    ImageEntity imageEntity = imageService.storeFile(data, fileName, fileType, fileSize);
+                    Executions.getCurrent().sendRedirect("/zul/editImage.zul?edit=" + imageEntity.getImageId());
+                } catch (Exception ex) {
+                    throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+                }
             }
         }
-    }
-
-    public AImage getLargeImage (Long id) throws IOException {
-        return new AImage(imageService.getImageById(id).getImageName(), imageService.getImageById(id).getImage());
     }
 
     public AImage getSmallImage (Long id) throws IOException {
@@ -84,47 +77,5 @@ public class HomePageVm implements Serializable {
         ImageIO.write(scaledImage, "png", os);
         is = new ByteArrayInputStream(os.toByteArray());
         return new AImage(imageService.getImageById(id).getImageName(), is);
-    }
-
-    @Command
-    public void showImageNewZul(Long id) {
-        doShowLargeImage(id);
-        Executions.createComponents("showImage.zul", null, null);
-    }
-
-    @Command
-    public void doShowLargeImage(@BindingParam("imageId") Long imageId) {
-        HttpServletResponse response = (HttpServletResponse)Executions.getCurrent().getNativeResponse();
-        ImageEntity item = imageService.getImageById(imageId);
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        try (OutputStream os = response.getOutputStream()) {
-            os.write(item.getImage());
-        } catch (IOException e) {
-            log.error(e);
-        }
-    }
-
-    public void showSmallPicture(Long imageId, HttpServletResponse response) {
-        ImageEntity item = imageService.getImageById(imageId);
-        InputStream is = new ByteArrayInputStream(item.getImage());
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        try {
-            BufferedImage srcImage = ImageIO.read(is);
-            try {
-                BufferedImage scaledImage = Scalr.resize(srcImage, 150);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(scaledImage, "jpg", baos);
-                baos.flush();
-                byte[] imageInByte = baos.toByteArray();
-                baos.close();
-                OutputStream os = response.getOutputStream();
-                os.write(imageInByte);
-                os.close();
-            } catch (IllegalArgumentException e) {
-                log.error(e);
-            }
-        } catch (IOException e) {
-            log.error(e);
-        }
     }
 }

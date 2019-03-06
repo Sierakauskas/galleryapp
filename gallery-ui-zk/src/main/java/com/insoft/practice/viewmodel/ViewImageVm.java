@@ -29,7 +29,6 @@ public class ViewImageVm implements Serializable {
         imageId = id;
     }
 
-    @Command
     public void doShowLargeImage() {
         HttpServletResponse response = (HttpServletResponse) Executions.getCurrent().getNativeResponse();
         ImageEntity item = imageService.getImageById(imageId);
@@ -40,12 +39,4 @@ public class ViewImageVm implements Serializable {
             log.error(e);
         }
     }
-
-    //    @QueryParam("id") Long id
-//    @Command
-//    @NotifyChange("entityList")
-//    public void doSearch() {
-//        entityList = imageService.getrequired("id", searchKeyword);
-//    }
-
 }

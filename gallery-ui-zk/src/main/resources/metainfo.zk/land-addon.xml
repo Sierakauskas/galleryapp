@@ -5,7 +5,7 @@
 
     <!--<component>-->
         <!--<component-name>component</component-name>-->
-        <!--<component-class>com.insoft.practice.bl</component-class>-->
+        <!--<component-class>com.insoft.practice.components.Component</component-class>-->
         <!--<macro-uri>~./services/ImageService.java</macro-uri>-->
     <!--</component>-->
 

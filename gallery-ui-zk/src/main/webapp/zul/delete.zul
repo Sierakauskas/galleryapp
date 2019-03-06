@@ -1,0 +1,14 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul" ?>
+<?page complete="true"?>
+
+
+<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.DeleteImageVm')">
+        <div class="container mt-5">
+            <div class="row justify-content-md-center">
+                <span style="color: red">${vm.message}</span>
+            </div>
+        </div>
+    </xh:div>
+</zk>

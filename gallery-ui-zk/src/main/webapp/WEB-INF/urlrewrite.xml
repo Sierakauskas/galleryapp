@@ -12,6 +12,10 @@
         <to>/zul/home.zul</to>
     </rule>
 
+    <!--<rule>-->
+        <!--<from>^/zul/delete.zul?id=([0-9]+)$</from>-->
+        <!--<to>delete?id=$1</to>-->
+    <!--</rule>-->
 
     <!--<rule match-type="wildcard">-->
         <!--<from>/blog/archive/**</from>-->

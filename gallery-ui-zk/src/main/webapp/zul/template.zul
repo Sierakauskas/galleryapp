@@ -25,7 +25,7 @@
                              class="d-inline-block align-top"/>
                         Home
                     </a>
-                    <a class="navbar-brand" href="@{/results/search=}">
+                    <a class="navbar-brand" href="/zul/search.zul?optradio=ID&amp;searchtext=">
                         <img src="${c:encodeURL('/images/Search-512.png')}" alt="search logo" title="search logo" width="30"
                              class="d-inline-block align-top"/>
                         Search
@@ -40,7 +40,7 @@
             <div class="container">
                 <div class="row top-buffer">
                     <div class="col-auto mr-auto"></div>
-                    <div class="col-auto">powered by SpringBoot</div>
+                    <div class="col-auto">powered by ZK</div>
                 </div>
             </div>
         </footer>

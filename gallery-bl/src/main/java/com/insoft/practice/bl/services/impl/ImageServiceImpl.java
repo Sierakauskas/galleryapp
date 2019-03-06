@@ -18,7 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 
 
-
 @RequiredArgsConstructor
 @Service("imageService")
 public class ImageServiceImpl implements ImageService {
@@ -29,7 +28,7 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.findAll();
     }
 
-    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ImageEntity storeFile(byte[] data, String fileName, String fileType, String fileSize) {
         ImageEntity imageEntity = new ImageEntity(data, fileName, fileType, fileSize);
         return imageRepository.save(imageEntity);
@@ -54,19 +53,15 @@ public class ImageServiceImpl implements ImageService {
     public String getTagName(Long id) {
         ImageEntity entity = imageRepository.getOne(id);
         String names = "";
-        try{
-            Iterator<ImageTagEntity> iterator = entity.getTags().iterator();
-            while (iterator.hasNext()) {
-                ImageTagEntity imageTagEntity = iterator.next();
-                names += "#" + imageTagEntity.getTagName() + " ";
-            }
-            if (names.equals("")) {
-                return "No Tags";
-            }
-            return names;
-        } catch (LazyInitializationException e) {
+        Iterator<ImageTagEntity> iterator = entity.getTags().iterator();
+        while (iterator.hasNext()) {
+            ImageTagEntity imageTagEntity = iterator.next();
+            names += "#" + imageTagEntity.getTagName() + " ";
+        }
+        if (names.equals("")) {
             return "No Tags";
         }
+        return names;
     }
 
     public List<ImageEntity> getrequired(String text, String keyWord) {

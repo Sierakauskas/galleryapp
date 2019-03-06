@@ -33,7 +33,7 @@ public class ImageTagServiceImpl implements ImageTagService {
                 count++;
             }
         }
-        if(count==0) {
+        if (count == 0) {
             entity.getTags().add(tagEntity);
             imageRepository.save(entity);
             return tagEntity;

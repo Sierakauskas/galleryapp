@@ -4,36 +4,8 @@
 
 <zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.HomePageVm')">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.SearchPageVm')">
         <div class="container">
-
-            <div class="row row justify-content-md-center">
-
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                    <h1>Photo
-                        <img src="${c:encodeURL('/images/upload.png')}" alt="upload logo" title="Upload logo"
-                             class="uploads"/>
-                        <!--th:src="@{.../images/upload.png}" th:alt-title="logo" -->
-                        Service
-                    </h1>
-                </div>
-                <div class="clearfix visible-sm-block"></div>
-            </div>
-            <!--upload file-->
-            <div class="row top-buffer">
-                <xh:div class="col-sm-12">
-                    <h5>Upload photo:</h5>
-                    <zul:fileupload upload="true" label="File Upload"
-                                    onUpload="@command('doUploadImage', media=event.media)" id="tosCheckbox"/>
-                </xh:div>
-            </div>
-
-            <div class="row top-buffer">
-                <div class="col-sm-12 ml-auto">
-                    <h5>Search for a photo:</h5>
-                </div>
-                <div class="clearfix visible-sm-block"></div>
-            </div>
 
             <zul:vbox>
                 <form action="/zul/search.zul">
@@ -66,18 +38,20 @@
                     </div>
                 </form>
             </zul:vbox>
-            <!--search-->
 
-            <div class="row top-buffer">
-                <div class="col-sm-12">
-                    <h6>Recently uploaded:</h6>
+            <div class="row mt-5">
+                <div class="col-auto mr-auto">
+                    <span>Showing by </span><span>${vm.keyword}</span><span>: </span><span>${vm.searchText}</span>
+                </div>
+                <div class="col-auto">
+                    <span>Found: </span><span>${vm.entityList.size()}</span>
                 </div>
             </div>
 
             <xh:div>
                 <sh:if test="${vm.entityList.size() != '0'}">
                     <xh:div>
-                        <xh:table class="table table-responsive zkTable" id="table" style="text-align: center">
+                        <xh:table class="table table-responsive zkTable" id="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
@@ -125,15 +99,11 @@
                 <sh:if test="${vm.entityList.size() == '0'}">
                     <div>
                         <div class="row justify-content-md-center">
-                            <span style="color: red">No Images in database yet</span>
+                            <span style="color: red">Nothing found</span>
                         </div>
                     </div>
                 </sh:if>
             </xh:div>
-
-
         </div>
-
-
     </xh:div>
 </zk>

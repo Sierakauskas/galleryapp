@@ -18,3 +18,28 @@ bootStrap
 <!--"${c:encodeURL(vm.doShowLargeImage(each.imageId)}"-->
 <!--<xh:a href="${c:encodeURL(vm.doShowLargeImage(each.imageId))}">-->
 <property name="hibernate.enable_lazy_load_no_trans">true</property>
+
+//    private Validator textValidator;
+//    public Validator getTextValidator() {
+//        return new AbstractValidator() {
+//            public void validate(ValidationContext ctx) {
+//                if(ctx == null) {
+//                    addInvalidMessage(ctx, "text only ");//but this method doesn't work
+//                }
+//                System.out.println("cia");
+//                String str = (String) ctx.getProperty().getValue();
+//                String reg = "^[a-zA-Z\\']+$";
+//                boolean mes = str.matches(reg);
+//                System.out.println("the msg:" + mes);//upto this line working
+//                if (!mes) {
+//                    addInvalidMessage(ctx, "text only ");//but this method doesn't work
+//                }
+//
+//            }
+//        };
+//    }
+
+    //    public AImage getLargeImage (Long id) throws IOException {
+//        return new AImage(imageService.getImageById(id).getImageName(), imageService.getImageById(id).getImage());
+//    }
+

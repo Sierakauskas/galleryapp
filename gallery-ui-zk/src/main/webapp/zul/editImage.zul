@@ -7,18 +7,14 @@
     <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.EditImageVm')">
         <div class="container">
             <div class="row col-sm-12 col-md-6 col-lg-6 mt-4">
-                <h6>Edit Picture:</h6>
+                <h6>Edit:</h6>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-4">
                     <xh:a href="/zul/showImage.zul?id=${vm.imageId}" style="background: white">
                         <zul:image content="${vm.getLargeImage()}" class="showImage"/>
                     </xh:a>
-                        <form action="@{/deleteImage}" class="mt-2">
-                            <button type="submit" name="imageid" value="${entity.getImageId()}" class="btn btn-danger">
-                                Delete Picture
-                            </button>
-                        </form>
+                    <zul:button type="submit" class="btn btn-danger mt-2" onClick="@command('doDeleteImage')">Delete Photo</zul:button>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-8 clearfix visible-sm-block">
                     <div class="row">
@@ -53,12 +49,18 @@
                                 <zul:label value="@load(vm.imageEntity.imageName)"/>
                             </h6>
                         </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                <zul:hbox>
-                                    <zul:textbox type="text" value="@bind(vm.imageName)" name="name" class="form-control" required="@validator('formBeanValidator')" />
-                                    <zul:button type="submit" class="btn btn-primary btn-sm mt-1" onClick="@command('doChangeName')">Change File Name
+                        <div class="col-sm-12 col-md-6 col-lg-6 mt-2">
+                                <zul:vbox>
+                                    <zul:textbox value="@save(vm.imageName, before='doChangeName')" type="text" name="name" class="form-control"
+                                                 constraint="no empty: {Sorry, no empty allowed}" onOK="@command('doChangeName')"/>
+                                    <zul:button type="submit" class="btn btn-primary btn-sm mt-1 box" onClick="@command('doChangeName')" >Change File Name
                                     </zul:button>
-                                </zul:hbox>
+                                </zul:vbox>
+                            <!--@validator(vm.textValidator)-->
+                            <!--onOK="@command('doChangeName')"-->
+                            <!--onCreate="self.focus()"-->
+                            <!--disabled="@load(empty vm.imageName)"-->
+                            <!--forward="onOK=btnSubmit.onClick"-->
                         </div>
                     </div>
                     <div class="row">
@@ -67,20 +69,17 @@
                                 <small class="text-muted">Tags:</small>
                                 <span class="mt-1">${imageService.getTagName(vm.imageId)}</span>
                             </h6>
-                                <form action="@{/deleteTag}" class="mt-2">
-                                    <button name="deleteTag" type="submit" value="${entity.getImageId()}"
-                                            class="btn btn-warning btn-sm">Delete All Tags
-                                    </button>
-                                    <!--<button class="btn" name="deleteTag" onClick="window.location.reload()"></button>-->
-                                </form>
+
+                            <zul:button type="submit" class="btn btn-warning btn-sm" onClick="@command('doDeleteTag')">Delete All Tags</zul:button>
+
                         </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                <form action="@{/editTag}" class="mt-2">
-                                    <input type="text" name="text" class="form-control" required="@validator()"/>
-                                    <button type="submit" name="editTag" value="${entity.getImageId()}"
-                                            class="btn btn-primary btn-sm mt-1">Add Tag
-                                    </button>
-                                </form>
+                        <div class="col-sm-12 col-md-6 col-lg-6 mt-3">
+                            <zul:vbox>
+                                <zul:textbox value="@save(vm.tagName, before='doChangeTag')" type="text" name="name" class="form-control"
+                                             constraint="no empty: {Sorry, no empty allowed}" onOK="@command('doChangeTag')"/>
+                                <zul:button type="submit" class="btn btn-primary btn-sm mt-1 box" onClick="@command('doChangeTag')" >Add Tag
+                                </zul:button>
+                            </zul:vbox>
                         </div>
                     </div>
 
