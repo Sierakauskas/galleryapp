@@ -2,8 +2,7 @@
 <?page complete="true"?>
 
 
-<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul">
     <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.HomePageVm')">
         <div class="container">
 
@@ -20,6 +19,7 @@
                 <div class="clearfix visible-sm-block"></div>
             </div>
             <!--upload file-->
+            <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
             <div class="row top-buffer">
                 <xh:div class="col-sm-12">
                     <h5>Upload photo:</h5>
@@ -27,7 +27,7 @@
                                     onUpload="@command('doUploadImage', media=event.media)" id="tosCheckbox"/>
                 </xh:div>
             </div>
-
+            </zul:div>
             <div class="row top-buffer">
                 <div class="col-sm-12 ml-auto">
                     <h5>Search for a photo:</h5>
@@ -107,10 +107,15 @@
                                     </xh:td>
                                     <td>
                                         <form action="/zul/editImage.zul">
-                                            <button class="btn btn-outline-primary" type="submit" name="edit"
+                                            <xh:button class="btn btn-outline-primary" type="submit" name="edit"
                                                     value="${each.imageId}">
-                                                <span>View</span>
-                                            </button>
+                                                <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
+                                                    <span>Edit</span>
+                                                </zul:div>
+                                                <zul:div if="${sec:isNoneGranted('ROLE_USER,ROLE_ADMIN')}">
+                                                    <span>View</span>
+                                                </zul:div>
+                                            </xh:button>
                                         </form>
                                     </td>
                                 </xh:tr>

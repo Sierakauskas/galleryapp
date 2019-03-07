@@ -3,11 +3,11 @@
     <addon-name>app-addons</addon-name>
     <language-name>xul/html</language-name>
 
-    <!--<component>-->
-        <!--<component-name>component</component-name>-->
-        <!--<component-class>com.insoft.practice.components.Component</component-class>-->
-        <!--<macro-uri>~./services/ImageService.java</macro-uri>-->
-    <!--</component>-->
+    <component>
+        <component-name>component</component-name>
+        <component-class>com.insoft.practice.components.Components</component-class>
+        <macro-uri>~./component/deleteComponent.zul</macro-uri>
+    </component>
 
     <!--org.springframework.boot.autoconfigure.EnableAutoConfiguration=\-->
     <!--org.zkoss.zkspringboot.ZkAutoConfiguration,\-->

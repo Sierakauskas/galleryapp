@@ -49,7 +49,7 @@ public class HomePageVm implements Serializable {
             String fileName = media.getName();
             String fileType = media.getContentType();
             if (!fileType.startsWith("image/") || media.getByteData().length<5 || fileType.startsWith("image/webp")) {
-                Clients.showNotification("Invalid type format","warning",tosCheckbox,"end_before",3000);
+                Clients.showNotification("Invalid type format!","warning",tosCheckbox,"end_before",3000);
             } else {
                 fileType = fileType.replace("image/", ".");
                 try {

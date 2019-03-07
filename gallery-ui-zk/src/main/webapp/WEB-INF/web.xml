@@ -3,7 +3,10 @@
          metadata-complete="true">
     <display-name>Application</display-name>
 
-
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/zul/customErrorZul.zul</location>
+    </error-page>
 </web-app>
 
 

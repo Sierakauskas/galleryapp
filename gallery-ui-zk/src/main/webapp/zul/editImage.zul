@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul" ?>
 <?page complete="true"?>
-
+<?component name="deletecomponent" macroURI="/zul/component/deleteComponent.zul"?>
 
 <zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -14,7 +14,13 @@
                     <xh:a href="/zul/showImage.zul?id=${vm.imageId}" style="background: white">
                         <zul:image content="${vm.getLargeImage()}" class="showImage"/>
                     </xh:a>
-                    <zul:button type="submit" class="btn btn-danger mt-2" onClick="@command('doDeleteImage')">Delete Photo</zul:button>
+
+                    <zul:div if="${sec:isAnyGranted('ROLE_ADMIN')}">
+                        <!--<deletecomponent value="${vm.imageId}"/>-->
+                        <zul:button type="submit" class="btn btn-danger mt-2" onClick="@command('doDeleteImage')">Delete
+                            Photo
+                        </zul:button>
+                    </zul:div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-8 clearfix visible-sm-block">
                     <div class="row">
@@ -49,19 +55,25 @@
                                 <zul:label value="@load(vm.imageEntity.imageName)"/>
                             </h6>
                         </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6 mt-2">
+                        <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
+                            <div class="col-sm-12 col-md-6 col-lg-6 mt-2">
+
                                 <zul:vbox>
-                                    <zul:textbox value="@save(vm.imageName, before='doChangeName')" type="text" name="name" class="form-control"
-                                                 constraint="no empty: {Sorry, no empty allowed}" onOK="@command('doChangeName')"/>
-                                    <zul:button type="submit" class="btn btn-primary btn-sm mt-1 box" onClick="@command('doChangeName')" >Change File Name
+                                    <zul:textbox value="@save(vm.imageName, before='doChangeName')" type="text"
+                                                 name="name" class="form-control"
+                                                 constraint="no empty: {Sorry, no empty allowed}"
+                                                 onOK="@command('doChangeName')"/>
+                                    <zul:button type="submit" class="btn btn-primary btn-sm mt-1 box"
+                                                onClick="@command('doChangeName')">Change File Name
                                     </zul:button>
                                 </zul:vbox>
-                            <!--@validator(vm.textValidator)-->
-                            <!--onOK="@command('doChangeName')"-->
-                            <!--onCreate="self.focus()"-->
-                            <!--disabled="@load(empty vm.imageName)"-->
-                            <!--forward="onOK=btnSubmit.onClick"-->
-                        </div>
+                                <!--@validator(vm.textValidator)-->
+                                <!--onOK="@command('doChangeName')"-->
+                                <!--onCreate="self.focus()"-->
+                                <!--disabled="@load(empty vm.imageName)"-->
+                                <!--forward="onOK=btnSubmit.onClick"-->
+                            </div>
+                        </zul:div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-6">
@@ -69,18 +81,25 @@
                                 <small class="text-muted">Tags:</small>
                                 <span class="mt-1">${imageService.getTagName(vm.imageId)}</span>
                             </h6>
-
-                            <zul:button type="submit" class="btn btn-warning btn-sm" onClick="@command('doDeleteTag')">Delete All Tags</zul:button>
-
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6 mt-3">
-                            <zul:vbox>
-                                <zul:textbox value="@save(vm.tagName, before='doChangeTag')" type="text" name="name" class="form-control"
-                                             constraint="no empty: {Sorry, no empty allowed}" onOK="@command('doChangeTag')"/>
-                                <zul:button type="submit" class="btn btn-primary btn-sm mt-1 box" onClick="@command('doChangeTag')" >Add Tag
+                            <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
+                                <zul:button type="submit" class="btn btn-warning btn-sm"
+                                            onClick="@command('doDeleteTag')">Delete All Tags
                                 </zul:button>
-                            </zul:vbox>
+                            </zul:div>
                         </div>
+                        <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
+                            <div class="col-sm-12 col-md-6 col-lg-6 mt-3">
+                                <zul:vbox>
+                                    <zul:textbox value="@save(vm.tagName, before='doChangeTag')" type="text" name="name"
+                                                 class="form-control"
+                                                 constraint="no empty: {Sorry, no empty allowed}"
+                                                 onOK="@command('doChangeTag')"/>
+                                    <zul:button type="submit" class="btn btn-primary btn-sm mt-1 box"
+                                                onClick="@command('doChangeTag')">Add Tag
+                                    </zul:button>
+                                </zul:vbox>
+                            </div>
+                        </zul:div>
                     </div>
 
                 </div>

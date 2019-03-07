@@ -1,0 +1,33 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<!DOCTYPE html>
+<xh:html xmlns="native" xmlns:zul="http://www.zkoss.org/2005/zul" xmlns:xh="xhtml" xmlns:sh="shadow">
+    <head>
+        <meta charset="utf-8"/>
+        <xh:zkhead stubonly="false"/>
+        <!--<link rel="stylesheet" href="${c:encodeURL('main.css')}"/>-->
+        <link rel="stylesheet" type="text/css" href="${c:encodeURL('/webjars/bootstrap/css/bootstrap.min.css')}"/>
+        <!-- Optional Bootstrap theme -->
+        <link rel="stylesheet" href="${c:encodeURL('/webjars/bootstrap/css/bootstrap-theme.min.css')}"/>
+        <link rel="stylesheet" href="${c:encodeURL('/main.css')}"/>
+        <script src="${c:encodeURL('/webjars/bootstrap/js/bootstrap.min.js')}"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row row justify-content-md-center">
+                <h1>Error!</h1>
+            </div>
+            <div class="row row justify-content-md-center">
+                <a href="/">
+                    <img src="${c:encodeURL('/images/error.png')}" alt="error" title="error"/>
+                </a>
+            </div>
+            <div class="row row justify-content-md-center">
+                <a href="/">
+                    <span style="color: blue">Get back to homepage</span>
+                </a>
+            </div>
+        </div>
+    </body>
+</xh:html>

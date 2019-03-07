@@ -41,68 +41,75 @@
 
             <div class="row mt-5">
                 <div class="col-auto mr-auto">
-                    <span>Showing by </span><span>${vm.keyword}</span><span>: </span><span>${vm.searchText}</span>
+                    <span>Showing by</span>
+                    <span>${vm.keyword}</span>
+                    <span>:</span>
+                    <span>${vm.searchText}</span>
                 </div>
                 <div class="col-auto">
-                    <span>Found: </span><span>${vm.entityList.size()}</span>
+                    <span>Found:</span>
+                    <span>${vm.entityList.size()}</span>
                 </div>
             </div>
 
-            <xh:div>
-                <sh:if test="${vm.entityList.size() != '0'}">
-                    <xh:div>
-                        <xh:table class="table table-responsive zkTable" id="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">File Name</th>
-                                    <th scope="col">Tags</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Size</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <xh:tbody>
-                                <!--<tr label="${user}" forEach="${'entityList'}">-->
-                                <xh:tr forEach="${vm.entityList}">
-                                    <!--<custom-attributes field="${each}"/>-->
-                                    <!--<sh:forEach items="@load(vm.entityList)">-->
-                                    <td>${each.imageId}</td>
-                                    <td>${each.imageName}</td>
-                                    <td>${imageService.getTagName(each.imageId)}</td>
-                                    <td>${each.imageType}</td>
-                                    <td>${each.imageSize}</td>
-                                    <xh:td>
-                                        <xh:a href="/zul/showImage.zul?id=${each.imageId}" style="background: white">
-                                            <zul:image content="${vm.getSmallImage(each.imageId)}"
-                                                       style="height:140px"/>
-                                        </xh:a>
-                                    </xh:td>
-                                    <td>
-                                        <form action="/zul/editImage.zul">
-                                            <button class="btn btn-outline-primary" type="submit" name="edit"
-                                                    value="${each.imageId}">
-                                                <span>View</span>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </xh:tr>
-                                <!--</sh:forEach>-->
-                            </xh:tbody>
-                        </xh:table>
-                    </xh:div>
-                </sh:if>
-            </xh:div>
+            <xh:div class="row justify-content-md-center">
+                <zul:div if="${vm.entityList.size() != '0'}">
 
+                    <xh:table class="table table-responsive zkTable" id="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">File Name</th>
+                                <th scope="col">Tags</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <xh:tbody>
+                            <!--<tr label="${user}" forEach="${'entityList'}">-->
+                            <xh:tr forEach="${vm.entityList}">
+                                <!--<custom-attributes field="${each}"/>-->
+                                <!--<sh:forEach items="@load(vm.entityList)">-->
+                                <td>${each.imageId}</td>
+                                <td>${each.imageName}</td>
+                                <td>${imageService.getTagName(each.imageId)}</td>
+                                <td>${each.imageType}</td>
+                                <td>${each.imageSize}</td>
+                                <xh:td>
+                                    <xh:a href="/zul/showImage.zul?id=${each.imageId}" style="background: white">
+                                        <zul:image content="${vm.getSmallImage(each.imageId)}"
+                                                   style="height:140px"/>
+                                    </xh:a>
+                                </xh:td>
+                                <td>
+                                    <form action="/zul/editImage.zul">
+                                        <xh:button class="btn btn-outline-primary" type="submit" name="edit"
+                                                   value="${each.imageId}">
+                                            <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
+                                                <span>Edit</span>
+                                            </zul:div>
+                                            <zul:div if="${sec:isNoneGranted('ROLE_USER,ROLE_ADMIN')}">
+                                                <span>View</span>
+                                            </zul:div>
+                                        </xh:button>
+                                    </form>
+                                </td>
+                            </xh:tr>
+                            <!--</sh:forEach>-->
+                        </xh:tbody>
+                    </xh:table>
+                </zul:div>
+            </xh:div>
             <xh:div>
-                <sh:if test="${vm.entityList.size() == '0'}">
+                <zul:div if="${vm.entityList.size() == '0'}">
                     <div>
                         <div class="row justify-content-md-center">
                             <span style="color: red">Nothing found</span>
                         </div>
                     </div>
-                </sh:if>
+                </zul:div>
             </xh:div>
         </div>
     </xh:div>

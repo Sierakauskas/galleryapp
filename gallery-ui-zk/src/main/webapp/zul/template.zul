@@ -1,10 +1,10 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
 
 
 <!DOCTYPE html>
-<xh:html xmlns="native" xmlns:zul="http://www.zkoss.org/2005/zul" xmlns:xh="xhtml" xmlns:sh="shadow"
-         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<xh:html xmlns="native" xmlns:zul="http://www.zkoss.org/2005/zul" xmlns:xh="xhtml" xmlns:sh="shadow">
     <head>
         <meta charset="utf-8"/>
         <xh:zkhead stubonly="false"/>
@@ -19,6 +19,33 @@
     <body>
         <header>
             <div class="container">
+                <div class="row">
+                    <div class="col-auto mr-auto"></div>
+                    <div class="col-auto">
+                        <zul:div if="${sec:isNoneGranted('ROLE_USER,ROLE_ADMIN')}">
+                            <zul:div if="${param.logout==null}">
+                                <xh:form action="/zul/login.zul">
+                                    <xh:label>Please Login:</xh:label>
+                                    <xh:button class="btn btn-outline-success btn-sm" type="submit">Login</xh:button>
+                                </xh:form>
+                            </zul:div>
+                            <zul:div if="${param.logout!=null}">
+                                <xh:form action="/zul/login.zul">
+                                    <xh:span style="color:red">You have logged out.</xh:span>
+                                    <xh:button class="btn btn-outline-success btn-sm" type="submit">Login</xh:button>
+                                </xh:form>
+                            </zul:div>
+                        </zul:div>
+                        <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
+                            <xh:form action="/logout">
+                                <xh:label>Welcome:
+                                    <span>${authentication.name}</span>
+                                </xh:label>
+                                <xh:button class="btn btn-outline-danger btn-sm" type="submit">Logout</xh:button>
+                            </xh:form>
+                        </zul:div>
+                    </div>
+                </div>
                 <nav class="navbar navbar-light bg-light mt-sm-1">
                     <a class="navbar-brand" href="/">
                         <img src="${c:encodeURL('/images/upload.png')}" alt="upload logo" title="Upload logo" width="30"
@@ -26,7 +53,8 @@
                         Home
                     </a>
                     <a class="navbar-brand" href="/zul/search.zul?optradio=ID&amp;searchtext=">
-                        <img src="${c:encodeURL('/images/Search-512.png')}" alt="search logo" title="search logo" width="30"
+                        <img src="${c:encodeURL('/images/Search-512.png')}" alt="search logo" title="search logo"
+                             width="30"
                              class="d-inline-block align-top"/>
                         Search
                     </a>
@@ -46,7 +74,7 @@
         </footer>
 
     </body>
-</xh:html >
+</xh:html>
 
         <!--<zk>-->
         <!--What's your name: <textbox id="demoInput"/>-->

@@ -4,12 +4,17 @@
         PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
         "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
 
-<urlrewrite use-query-string="true">
-
+<urlrewrite>
+    <!--use-query-string="true"-->
 
     <rule>
         <from>^/$</from>
         <to>/zul/home.zul</to>
+    </rule>
+
+    <rule>
+        <from>^/?logout$</from>
+        <to>/zul/home.zul?logout</to>
     </rule>
 
     <!--<rule>-->

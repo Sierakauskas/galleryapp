@@ -16,24 +16,22 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
+@Getter
 public class SearchPageVm implements Serializable {
     private static final long serialVersionUID = -3440818130908355085L;
 
     @WireVariable
     private ImageService imageService;
 
-    @Getter
     private String searchText;
 
-    @Getter
     private String keyword;
 
-    @Getter
     @Setter
     private List<ImageEntity> entityList;
 
     @Init
-    @NotifyChange({"searchText", "keyword"})
+    @NotifyChange({"searchText", "keyword", "entityList"})
     public void init(@QueryParam("optradio") String keyword, @QueryParam("searchtext") String searchText) {
         this.keyword = keyword;
         this.searchText = searchText;
