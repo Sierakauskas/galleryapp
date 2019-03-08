@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul" ?>
 <?page complete="true"?>
-<?component name="deletecomponent" macroURI="/zul/component/deleteComponent.zul"?>
+
 
 <zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -16,7 +16,8 @@
                     </xh:a>
 
                     <zul:div if="${sec:isAnyGranted('ROLE_ADMIN')}">
-                        <!--<deletecomponent value="${vm.imageId}"/>-->
+                        <include type="@load(vm.myArgument)" src="@load('component.zul')"/>
+                        <component id="component" value="${vm.imageId}"/>
                         <zul:button type="submit" class="btn btn-danger mt-2" onClick="@command('doDeleteImage')">Delete
                             Photo
                         </zul:button>
@@ -52,12 +53,13 @@
                             <h6 class="mt-2">
                                 <small class="text-muted">File Name:</small>
                                 <!--<span class="mt-1">${vm.imageEntity.imageName}</span>-->
+                                <div style="width: auto; overflow: auto">
                                 <zul:label value="@load(vm.imageEntity.imageName)"/>
+                                </div>
                             </h6>
                         </div>
                         <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
-                            <div class="col-sm-12 col-md-6 col-lg-6 mt-2">
-
+                            <div class="col-sm-12 col-md-6 col-lg-6 mt-6">
                                 <zul:vbox>
                                     <zul:textbox value="@save(vm.imageName, before='doChangeName')" type="text"
                                                  name="name" class="form-control"
@@ -79,7 +81,9 @@
                         <div class="col-sm-12 col-md-6 col-lg-6">
                             <h6 class="mt-3">
                                 <small class="text-muted">Tags:</small>
+                                <div style="width: auto; overflow: auto">
                                 <span class="mt-1">${imageService.getTagName(vm.imageId)}</span>
+                                </div>
                             </h6>
                             <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
                                 <zul:button type="submit" class="btn btn-warning btn-sm"

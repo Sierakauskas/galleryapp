@@ -43,3 +43,5 @@ bootStrap
 //        return new AImage(imageService.getImageById(id).getImageName(), imageService.getImageById(id).getImage());
 //    }
 
+git branch --set-upstream-to=origin/master master
+changed README.md in github, didn't let to push without this command in folder with git Bash

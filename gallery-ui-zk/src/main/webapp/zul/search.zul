@@ -73,15 +73,25 @@
                                 <!--<custom-attributes field="${each}"/>-->
                                 <!--<sh:forEach items="@load(vm.entityList)">-->
                                 <td>${each.imageId}</td>
-                                <td>${each.imageName}</td>
-                                <td>${imageService.getTagName(each.imageId)}</td>
+                                <td>
+                                    <div style="width: 200px; overflow: auto">
+                                        ${each.imageName}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width: 80px; overflow: auto">
+                                        ${imageService.getTagName(each.imageId)}
+                                    </div>
+                                </td>
                                 <td>${each.imageType}</td>
                                 <td>${each.imageSize}</td>
                                 <xh:td>
-                                    <xh:a href="/zul/showImage.zul?id=${each.imageId}" style="background: white">
-                                        <zul:image content="${vm.getSmallImage(each.imageId)}"
-                                                   style="height:140px"/>
-                                    </xh:a>
+                                    <xh:div style="width: 250px; height: auto; overflow: auto">
+                                        <xh:a href="/zul/showImage.zul?id=${each.imageId}" style="background: white">
+                                            <zul:image content="${vm.getSmallImage(each.imageId)}"
+                                                       style="height:140px"/>
+                                        </xh:a>
+                                    </xh:div>
                                 </xh:td>
                                 <td>
                                     <form action="/zul/editImage.zul">

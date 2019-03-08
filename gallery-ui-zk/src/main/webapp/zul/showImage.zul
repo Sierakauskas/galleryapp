@@ -12,7 +12,6 @@
         <xh:div>
             <xh:span href="${c:encodeURL(vm.doShowLargeImage())}"/>
         </xh:div>
-        Hello
     </body>
     </xh:div>
 </html>

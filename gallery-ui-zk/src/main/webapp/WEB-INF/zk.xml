@@ -3,6 +3,9 @@
     <system-config>
         <label-location>/WEB-INF/i18n/common.properties</label-location>
     </system-config>
+    <language-config>
+        <addon-uri>/metainfo/zk/lang-addon.xml</addon-uri>
+    </language-config>
     <device-config>
         <device-type>ajax</device-type>
         <unavailable-message />

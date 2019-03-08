@@ -1,6 +1,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
+<!--<?component name="components" macro-URI="/component/component.zul"?>-->
 
 
 <!DOCTYPE html>
@@ -8,9 +9,7 @@
     <head>
         <meta charset="utf-8"/>
         <xh:zkhead stubonly="false"/>
-        <!--<link rel="stylesheet" href="${c:encodeURL('main.css')}"/>-->
         <link rel="stylesheet" type="text/css" href="${c:encodeURL('/webjars/bootstrap/css/bootstrap.min.css')}"/>
-        <!-- Optional Bootstrap theme -->
         <link rel="stylesheet" href="${c:encodeURL('/webjars/bootstrap/css/bootstrap-theme.min.css')}"/>
         <link rel="stylesheet" href="${c:encodeURL('/main.css')}"/>
         <script src="${c:encodeURL('/webjars/bootstrap/js/bootstrap.min.js')}"/>
