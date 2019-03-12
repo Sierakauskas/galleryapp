@@ -1,8 +1,6 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
-<!--<?component name="components" macro-URI="/component/component.zul"?>-->
-
 
 <!DOCTYPE html>
 <xh:html xmlns="native" xmlns:zul="http://www.zkoss.org/2005/zul" xmlns:xh="xhtml" xmlns:sh="shadow">

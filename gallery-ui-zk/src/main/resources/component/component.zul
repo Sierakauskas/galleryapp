@@ -1,8 +1,0 @@
-<xh:div xmlns:zul="http://www.zkoss.org/2005/zul" xmlns="native" xmlns:xh="xhtml"
-        viewModel="@id('vm') @init(arg.includer)">
-    <xh:div>
-        <zul:button id="component" type="submit" class="btn btn-danger mt-2" onClick="@command('doDeleteImage')">Delete
-            Photo
-        </zul:button>
-    </xh:div>
-</xh:div>

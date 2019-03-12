@@ -1,5 +1,6 @@
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="template.zul" ?>
 <?page complete="true"?>
+<!--<?component name="component" macro-URI="/WEB-INF/component/component.zul" class="com.insoft.practice.components.MyTextbox"?>-->
 
 
 <zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul"
@@ -16,11 +17,11 @@
                     </xh:a>
 
                     <zul:div if="${sec:isAnyGranted('ROLE_ADMIN')}">
-                        <include type="@load(vm.myArgument)" src="@load('component.zul')"/>
-                        <component id="component" value="${vm.imageId}"/>
-                        <zul:button type="submit" class="btn btn-danger mt-2" onClick="@command('doDeleteImage')">Delete
-                            Photo
-                        </zul:button>
+                        <!--<include type="@load(vm.myArgument)" src="@load('component.zul')"/>-->
+                        <zul:randomkompon label="${vm.imageId}"/>
+                        <!--<zul:button type="submit" class="btn btn-danger mt-2" onClick="@command('doDeleteImage')">Delete-->
+                            <!--Photo-->
+                        <!--</zul:button>-->
                     </zul:div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-8 clearfix visible-sm-block">
