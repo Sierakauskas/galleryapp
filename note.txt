@@ -46,4 +46,4 @@ bootStrap
 git branch --set-upstream-to=origin/master master
 changed README.md in github, didn't let to push without this command in folder with git Bash
 
-<?component name="component" macro-URI="/WEB-INF/component/component.zul" class="com.insoft.practice.components.Components"?>
+<?component name="component" macro-URI="/WEB-INF/component/component.zul" class="com.insoft.practice.components.DeleteImageComp"?>

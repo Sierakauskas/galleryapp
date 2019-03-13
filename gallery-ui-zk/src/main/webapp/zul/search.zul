@@ -6,39 +6,7 @@
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.insoft.practice.viewmodel.SearchPageVm')">
         <div class="container">
-
-            <zul:vbox>
-                <form action="/zul/search.zul">
-                    <div class="row col-sm-12 col-md-8 col-lg-8">
-                        <p>by:</p>
-                        <label class="radio col-sm-auto">
-                            <input type="radio" name="optradio" value="ID" checked="@init()"/>ID
-                        </label>
-                        <label class="radio col-sm-auto">
-                            <input type="radio" name="optradio" value="File Name"/>File Name
-                        </label>
-                        <label class="radio col-sm-auto">
-                            <input type="radio" name="optradio" value="Tag"/>Tag
-                        </label>
-                        <label class="radio col-sm-auto">
-                            <input type="radio" name="optradio" value="Type"/>Type
-                        </label>
-                        <label class="radio col-sm-auto">
-                            <input type="radio" name="optradio" value="Size"/>Size
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-4">
-                            <zul:textbox class="form-control" type="text" name="searchtext" placeholder="Search"
-                                         onCreate="self.focus()" onOk="submit"/>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-4">
-                            <button class="btn btn-outline-primary" type="submit">Search</button>
-                        </div>
-                    </div>
-                </form>
-            </zul:vbox>
-
+            <zul:searchkompon/>
             <div class="row mt-5">
                 <div class="col-auto mr-auto">
                     <span>Showing by</span>
@@ -51,76 +19,7 @@
                     <span>${vm.entityList.size()}</span>
                 </div>
             </div>
-
-            <xh:div class="row justify-content-md-center">
-                <zul:div if="${vm.entityList.size() != '0'}">
-
-                    <xh:table class="table table-responsive zkTable" id="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">File Name</th>
-                                <th scope="col">Tags</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Size</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <xh:tbody>
-                            <!--<tr label="${user}" forEach="${'entityList'}">-->
-                            <xh:tr forEach="${vm.entityList}">
-                                <!--<custom-attributes field="${each}"/>-->
-                                <!--<sh:forEach items="@load(vm.entityList)">-->
-                                <td>${each.imageId}</td>
-                                <td>
-                                    <div style="width: 200px; overflow: auto">
-                                        ${each.imageName}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="width: 80px; overflow: auto">
-                                        ${imageService.getTagName(each.imageId)}
-                                    </div>
-                                </td>
-                                <td>${each.imageType}</td>
-                                <td>${each.imageSize}</td>
-                                <xh:td>
-                                    <xh:div style="width: 250px; height: auto; overflow: auto">
-                                        <xh:a href="/zul/showImage.zul?id=${each.imageId}" style="background: white">
-                                            <zul:image content="${vm.getSmallImage(each.imageId)}"
-                                                       style="height:140px"/>
-                                        </xh:a>
-                                    </xh:div>
-                                </xh:td>
-                                <td>
-                                    <form action="/zul/editImage.zul">
-                                        <xh:button class="btn btn-outline-primary" type="submit" name="edit"
-                                                   value="${each.imageId}">
-                                            <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
-                                                <span>Edit</span>
-                                            </zul:div>
-                                            <zul:div if="${sec:isNoneGranted('ROLE_USER,ROLE_ADMIN')}">
-                                                <span>View</span>
-                                            </zul:div>
-                                        </xh:button>
-                                    </form>
-                                </td>
-                            </xh:tr>
-                            <!--</sh:forEach>-->
-                        </xh:tbody>
-                    </xh:table>
-                </zul:div>
-            </xh:div>
-            <xh:div>
-                <zul:div if="${vm.entityList.size() == '0'}">
-                    <div>
-                        <div class="row justify-content-md-center">
-                            <span style="color: red">Nothing found</span>
-                        </div>
-                    </div>
-                </zul:div>
-            </xh:div>
+            <zul:tablekompon label="${vm.entityList}"/>
         </div>
     </xh:div>
 </zk>

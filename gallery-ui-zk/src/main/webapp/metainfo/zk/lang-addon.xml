@@ -4,9 +4,9 @@
     <language-name>xul/html</language-name>
 
     <component>
-        <component-name>randomkompon</component-name>
-        <component-class>com.insoft.practice.components.Components</component-class>
-        <macro-uri>/WEB-INF/component/component.zul</macro-uri>
+        <component-name>deletekompon</component-name>
+        <component-class>com.insoft.practice.components.DeleteImageComp</component-class>
+        <macro-uri>/WEB-INF/component/deleteImage.zul</macro-uri>
         <annotation>
             <annotation-name>ZKBIND</annotation-name>
             <property-name>value</property-name>
@@ -19,9 +19,18 @@
                 <attribute-value>onEdited</attribute-value>
             </attribute>
         </annotation>
-        <mold>
-            <mold-name>bs</mold-name>
-        </mold>
+        <!--<mold>-->
+            <!--<mold-name>bs</mold-name>-->
+        <!--</mold>-->
         <!--<extends>component</extends>-->
+    </component>
+    <component>
+        <component-name>searchkompon</component-name>
+        <macro-uri>/WEB-INF/component/searchForm.zul</macro-uri>
+    </component>
+    <component>
+        <component-name>tablekompon</component-name>
+        <component-class>com.insoft.practice.components.TableComp</component-class>
+        <macro-uri>/WEB-INF/component/imageTable.zul</macro-uri>
     </component>
 </language-addon>

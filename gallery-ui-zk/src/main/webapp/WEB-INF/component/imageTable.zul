@@ -1,0 +1,69 @@
+<xh:section viewModel="@id('vm') @init(arg.includer)"
+            xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul">
+    <xh:div>
+        <xh:div class="row justify-content-md-center">
+            <sh:if test="${arg.label.size() != '0'}">
+                <xh:div>
+                    <xh:table class="table table-responsive zkTable" id="table" style="text-align: center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">File Name</th>
+                                <th scope="col">Tags</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <xh:tbody>
+                            <xh:tr forEach="${arg.label}">
+                                <td>${each.imageId}</td>
+                                <td>
+                                    <div style="width: 200px; overflow: auto">
+                                        ${each.imageName}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width: 80px; overflow: auto">
+                                        ${imageService.getTagName(each.imageId)}
+                                    </div>
+                                </td>
+                                <td>${each.imageType}</td>
+                                <td>${each.imageSize}</td>
+                                <xh:td>
+                                    <xh:div style="width: 250px; height: auto; overflow: auto">
+                                        <xh:a href="/zul/showImage.zul?id=${each.imageId}"
+                                              style="background: white">
+                                            <zul:image content="${vm.getSmallImage(each.imageId)}"
+                                                       style="height:140px"/>
+                                        </xh:a>
+                                    </xh:div>
+                                </xh:td>
+                                <td>
+                                    <form action="/zul/editImage.zul">
+                                        <xh:button class="btn btn-outline-primary" type="submit" name="edit"
+                                                   value="${each.imageId}">
+                                            <zul:div if="${sec:isAnyGranted('ROLE_USER,ROLE_ADMIN')}">
+                                                <span>Edit</span>
+                                            </zul:div>
+                                            <zul:div if="${sec:isNoneGranted('ROLE_USER,ROLE_ADMIN')}">
+                                                <span>View</span>
+                                            </zul:div>
+                                        </xh:button>
+                                    </form>
+                                </td>
+                            </xh:tr>
+                            <!--</sh:forEach>-->
+                        </xh:tbody>
+                    </xh:table>
+                </xh:div>
+            </sh:if>
+        </xh:div>
+        <div class="mt-4 align-self-center">
+            <sh:if test="${arg.label.size() == '0'}">
+                <xh:span style="color: red">Nothing To Show</xh:span>
+            </sh:if>
+        </div>
+    </xh:div>
+</xh:section>

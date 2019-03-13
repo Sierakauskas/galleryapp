@@ -6,21 +6,18 @@ import com.insoft.practice.model.ImageEntity;
 import lombok.Getter;
 import lombok.extern.apachecommons.CommonsLog;
 import org.apache.commons.io.IOUtils;
-import org.imgscalr.Scalr;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Checkbox;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,16 +63,5 @@ public class HomePageVm implements Serializable {
                 }
             }
         }
-    }
-
-    public AImage getSmallImage (Long id) throws IOException {
-        byte[] imageByte = imageService.getImageById(id).getImage();
-        InputStream is = new ByteArrayInputStream(imageByte);
-        BufferedImage srcImage = ImageIO.read(is);
-        BufferedImage scaledImage = Scalr.resize(srcImage, 150);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(scaledImage, "png", os);
-        is = new ByteArrayInputStream(os.toByteArray());
-        return new AImage(imageService.getImageById(id).getImageName(), is);
     }
 }

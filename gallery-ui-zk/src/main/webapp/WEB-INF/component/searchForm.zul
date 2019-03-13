@@ -1,0 +1,39 @@
+<xh:section viewModel="@id('vm') @init(arg.includer)"
+            xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul">
+    <xh:div>
+        <zul:vbox>
+
+            <form action="/zul/search.zul">
+                <div class="row">
+                    <label class="radio col-sm-auto">
+                        <p>by:</p>
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="ID" checked="@init()"/>ID
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="File Name"/>File Name
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="Tag"/>Tag
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="Type"/>Type
+                    </label>
+                    <label class="radio col-sm-auto">
+                        <input type="radio" name="optradio" value="Size"/>Size
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <zul:textbox class="form-control" type="text" name="searchtext" placeholder="Search"
+                                     onCreate="self.focus()" onOk="submit"/>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </zul:vbox>
+    </xh:div>
+</xh:section>

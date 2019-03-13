@@ -10,18 +10,15 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Button;
 
-public class Components extends HtmlMacroComponent {
+public class DeleteImageComp extends HtmlMacroComponent {
     private static final long serialVersionUID = 7935967626121317003L;
 
     @WireVariable
     private ImageService imageService;
 
-    @Wire
-    private Button delete_button;
-
     private Long id;
 
-    public Components () {
+    public DeleteImageComp() {
 
     }
 
@@ -48,5 +45,5 @@ public class Components extends HtmlMacroComponent {
 }
 
 //        Events.postEvent(new Event("onClick", this, null));
-//        Executions.createComponents("/WEB-INF/component/component.zul", this, null);
+//        Executions.createComponents("/WEB-INF/component/deleteImage.zul", this, null);
 //        compose();
